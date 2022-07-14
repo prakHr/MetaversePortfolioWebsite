@@ -1,6 +1,9 @@
 {
-  "name": "ryan_floyd_threejs",
+  "name": "prakhar_gandhi_threejs",
   "version": "1.0.0",
+  "engines":{
+  	  "node":"16.x"
+  },
   "description": "webpack starter",
   "main": "app.js",
   "scripts": {
