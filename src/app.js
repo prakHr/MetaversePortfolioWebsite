@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { WEBGL } from './WebGL';
 import * as Ammo from './builds/ammo';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 import {
   billboardTextures,
   boxTexture,
@@ -387,7 +389,7 @@ Ammo().then((Ammo) => {
         new THREE.MeshPhongMaterial({ color: color }), // side
       ];
 
-      var geometry = new THREE.TextGeometry('RYAN FLOYD', {
+      var geometry = new THREE.TextGeometry('PRAKHAR GANDHI \nUDAIPUR,RAJ(INDIA)', {
         font: font,
         size: 3,
         height: 0.5,
@@ -431,7 +433,7 @@ Ammo().then((Ammo) => {
         new THREE.MeshPhongMaterial({ color: color }), // side
       ];
 
-      var geometry = new THREE.TextGeometry('SOFTWARE ENGINEER', {
+      var geometry = new THREE.TextGeometry('DATA ANALYST', {
         font: font,
         size: 1.5,
         height: 0.5,
@@ -459,7 +461,92 @@ Ammo().then((Ammo) => {
       scene.add(text);
     });
   }
+  //create "timeline text"
+  function loadTimelineText() {
+    var text_loader = new THREE.FontLoader();
 
+    text_loader.load('./src/jsm/Roboto_Regular.json', function (font) {
+      var xMid, text;
+
+      var color = 0x00ff08;
+
+      var textMaterials = [
+        new THREE.MeshBasicMaterial({ color: color }), // front
+        new THREE.MeshPhongMaterial({ color: color }), // side
+      ];
+
+      var geometry = new THREE.TextGeometry('TIMELINE', {
+        font: font,
+        size: 1.5,
+        height: 0.5,
+        curveSegments: 20,
+        bevelEnabled: true,
+        bevelThickness: 0.25,
+        bevelSize: 0.1,
+      });
+
+      geometry.computeBoundingBox();
+      geometry.computeVertexNormals();
+
+      xMid = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+
+      geometry.translate(xMid, 0, 0);
+
+      var textGeo = new THREE.BufferGeometry().fromGeometry(geometry);
+
+      text = new THREE.Mesh(textGeo, textMaterials);
+      text.position.z = -20;
+      text.position.y = 0.1;
+      text.position.x = 24+15;
+      text.receiveShadow = true;
+      text.castShadow = true;
+      scene.add(text);
+    });
+  }
+   //createTextOnPlane(24+15,0.1,-20,inputText.timelinePicOne,20,40);
+  //loads text for Ryan Floyd Mesh
+  function loadPrakharEducationText(inputtext,inputy,inputz,inputfontsize) {
+    var text_loader = new THREE.FontLoader();
+
+    text_loader.load('./src/jsm/Roboto_Regular.json', function (font) {
+      var xMid, text;
+
+      var color = 0xfffc00;
+
+      var textMaterials = [
+        new THREE.MeshBasicMaterial({ color: color }), // front
+        new THREE.MeshPhongMaterial({ color: color }), // side
+      ];
+
+      var geometry = new THREE.TextGeometry(inputtext, {
+        font: font,
+        size: inputfontsize,
+        height: 0.5,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 0.1,
+        bevelSize: 0.11,
+        bevelOffset: 0,
+        bevelSegments: 1,
+      });
+
+      geometry.computeBoundingBox();
+      geometry.computeVertexNormals();
+
+      xMid = -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+
+      geometry.translate(xMid, 0, 0);
+
+      var textGeo = new THREE.BufferGeometry().fromGeometry(geometry);
+
+      text = new THREE.Mesh(geometry, textMaterials);
+      text.position.z = inputz;
+      text.position.y = inputy;
+      text.receiveShadow = true;
+      text.castShadow = true;
+      scene.add(text);
+    });
+  }
   //function to create billboard
   function createBillboard(
     x,
@@ -972,6 +1059,8 @@ Ammo().then((Ammo) => {
     //console.log("Error loading");
   };
 
+	
+
   startButton.addEventListener('click', startButtonEventListener);
 
   if (isTouchscreenDevice()) {
@@ -1013,18 +1102,108 @@ Ammo().then((Ammo) => {
       Math.PI * 0.17
     );
 
-    createBillboardRotated(
-      -17,
-      1.25,
-      -75,
-      billboardTextures.homeSweetHomeTexture,
-      URL.githubHomeSweetHome,
-      Math.PI * 0.15
-    );
+    //createBillboardRotated(
+    //  -17,
+    //  1.25,
+    //  -75,
+    //  billboardTextures.homeSweetHomeTexture,
+    //  URL.githubHomeSweetHome,
+    //  Math.PI * 0.15
+    //);
 
+	const gltfLoader = new GLTFLoader();
+	gltfLoader.load("/static/models/humanoid_robot/scene.gltf",(gltf)=>{
+		//console.log("INSERTED ROBOT HERE",gltf);
+		//for(let i=0;i<gltf.scene.children.length;i++){
+		//	scene.add(gltf.scene.children[i]);
+		//}
+		const robot = gltf.scene;
+		robot.scale.set(0.9,0.9,0.9);
+		scene.add(robot);
+		//const robot = gltf.scene.children[0];
+		//robot.position.set(25.35,1.75,-19.29);
+		//robot.scale.set(0.03,0.03,0.03);
+		//scene.add(robot);
+	},
+	(progress)=>{
+	//console.log(progress);
+	},
+	(error)=>{
+	//console.log(error);
+	});
+	
     ryanFloydWords(11.2, 1, -20);
+	loadPrakharEducationText('HACKATHON\n PROJECT',1.25,-75-10,2);
+	
     createTextOnPlane(-70, 0.01, -48, inputText.terpSolutionsText, 20, 40);
-    createTextOnPlane(-42, 0.01, -53, inputText.bagholderBetsText, 20, 40);
+	let terpSolutionsText = `Data Analyst(Python)
+'Standard Chartered Bank - Global Business
+Services, Private Limited
+08/2020 - Present, Chennai,IN
+
+Standard Chartered is a product based company 
+which has recently started developing many AI 
+tools in banking sector whose clients
+include large corporations, governments, 
+banks and investors headquartered, operating or 
+investing in Asia, Africa and the Middle East.
+
+ROLES AND DUTIES:-
+-Extract the Client Request data from datasets 
+and to perform automation of key extraction used 
+regex matcher functions in python. 
+
+-Usage of custom builded Machine Learning Models
+to perform (NLP) synonym replacement, deletion of
+past, present and future tense words from banking
+dictionary words.
+
+-Visualized the insights used HTML, CSS and mainly
+in JS used combination of User Interface(React JS) 
+and Application Programming Interface(Django and
+Flask).
+
+-Image duplicate prediction used mobilenet and
+bounding box prediction used pretrained model of
+pytorch Faster RCNN of resnet 50 with RPN(Region
+Proposal Network)`;
+    //simpleText(-70-5,0.01,-48-10,terpSolutionsText,0.7);
+	createTextOnPlane(-42, 0.01, -53, inputText.bagholderBetsText, 20, 40);
+	let bagholderBetsText = `Django REST API Creation - Company: - Standard
+Chartered Bank GBS Standard Chartered Bank 
+Global Business Services
+Private Limited
+Created apis that generates datapoints from
+3 main ML Pipelines(ML,CV and NLP) and keep 
+it into postgresql database. 
+Created tables in database, optimized code
+to put million rows of csv files into tables.
+Made various apis for text features generation
+like adverb count, noun count, adjective count,
+profanity checks , etc from csv, excel,
+text and pdf files. 
+Made various apis for image features generation
+like average brightness score, mean brightness 
+score, average blurrness score, skewness check,
+etc from single and multiple images  
+Made functions for Upper Control Limit and
+Lower Control Limit using Inter Quartile Range
+for discrete data and X-bar and s control charts
+values for continuous data. 
+Send these calculations to frontend to show
+in chart under Model Monitoring and Improvement 
+Section. Daterange and classwise statistical 
+accuracy and stability charts datapoints are sent
+in UI to visualize the drift happening overall. 
+Also created an api for payslips image to text 
+conversion and generated both image and text 
+features from the text. 
+UNIT TESTING:- Used query params from postman 
+app as input for testing purpose. Added Argument 
+checklist for main functions as well.  
+DEPLOYMENT:- Deployed all of the APIs in the 
+linux virtual machine.`;
+	//simpleText(-42,0.01,-48-10,bagholderBetsText,0.9);
     createTextOnPlane(-14, 0.01, -49, inputText.homeSweetHomeText, 20, 40);
 
     createBox(
@@ -1086,7 +1265,7 @@ Ammo().then((Ammo) => {
       4,
       1,
       boxTexture.mail,
-      'mailto:arfloyd7@gmail.com',
+      'mailto:gprakhar0@gmail.com',
       0x000000,
       false
     );
@@ -1104,39 +1283,60 @@ Ammo().then((Ammo) => {
     //   false
     // );
 
-    createBox(
-      35,
-      2,
-      -70,
-      4,
-      4,
-      1,
-      boxTexture.writing,
-      URL.devTo,
-      0x000000,
-      false
-    );
+    //createBox(
+    //  35,
+    //  2,
+    //  -70,
+    //  4,
+    //  4,
+    //  1,
+    //  boxTexture.writing,
+    //  URL.devTo,
+    //  0x000000,
+    //  false
+    //);
+	
 
     // floatingLabel(3.875, 4.5, -70, 'Twitter');
     floatingLabel(11.875, 4.5, -70, 'Github');
     floatingLabel(19.125, 4.5, -70, 'LinkedIn');
     floatingLabel(26.875, 4.5, -70, 'Email');
     // floatingLabel(35, 6.5, -70, '  Static \nWebsite');
-    floatingLabel(35, 6.5, -70, '   How I \nmade this');
+    //floatingLabel(35, 6.5, -70, '   How I \nmade this');
     // floatingLabel(44, 6.5, -70, '   How I \nmade this');
 
     allSkillsSection(-50, 0.025, 20, 40, 40, boxTexture.allSkills);
-    allSkillsSection(61, 0.025, 13, 30, 60, inputText.activities);
-    allSkillsSection(8.5, 0.025, 54, 7, 3.5, boxTexture.skrillex);
-    allSkillsSection(9, 0.01, 45, 15, 15, boxTexture.edmText);
-    allSkillsSection(9, 0.01, 20, 21, 10.5, inputText.staticPortfolio);
+	let allskillstext="Analytical Toolkit - Jupyter Notebook, Spyder, PostgreSQL\nServer, Mongo DB, Excel.\nDatabase - Cloud Firestore, Firebase, PostgreSQL\nDeep Learning Frameworks - Tensorflow, Keras.\n Machine Learning Frameworks - Scikitlearn, Huggingface, Numpy, Pandas. Natural Language Processing\nFrameworks - NLTK, Spacy, Gensim.\nVisualization Tools - Matplotlib, OpenCV.\nReporting Tools - Django, Flask, Streamlit, React JS(integration with REST APIs). "
+	simpleText(-50,0.025,40,allskillstext,0.9);
+	let journeytext= "ML/DL ALGORITHMS, TECHNIQUES\nLinear Regression | Logistic Regression | Support Vector Machines | Random\nForest | K-mean Clustering | Grid Search, Random search, Bayesian Search and\nK-folds | Dimensionality Reduction | NLTK | FasterRCNNs | Resnets |\nMobilenets.\n\nLessons Learnt\nIn the 1.6+ years of, passionate & diligent Data Science Journey. I have Learnt,\nSQL\nLearnt how to efficiently query the data from a database using PostgreSQL.\nClassification metrics computation\nImplemented Classification Algorithms and focused on getting metrics\n (metrics of confusion matrix) and other metrics (precision, recall, sensitivity\n, specificity and f1 score) and feeded different formulas of True Positive, True Negative\n, False Positive and False Negative.\nClean content Topic Modelling\nPerformed Topic Modeling similar to Clustering analysis in Python.\nDimensionality Reduction Performed to reduce the dimensions and find important features.\nBackward Elimination Automated to get the important features for columns of floats and ints\n while adding constant and removing afterwards using significance level comparison with p-value.\nK-Fold Split\nEnhance the model performances using Bayesian Search to reduce time spent on searching\n by using Grid Search and K-folds validation. Web scrapping\nDifferent city sites of justDial.com - there extracted data (phone number, kirana owner name\n and addresses) from html contents and builded a lxml parser.And\nextracting friends from mbasic site of facebook.com. Implemented an scraper\nthat takes username and password as input and gives extracted friends from\nfacebook as output.\nFace Detection of Avengers Cast\nDeployed on huggingface websites to detect faces of 5 different stars of avengers movie\n using a python api that generates encodings and labels of the dataset.\n";
+	simpleText(81,-1,-24,journeytext,0.9);
+    //allSkillsSection(61, 0.025, 13, 30, 60, inputText.activities);
 
+    allSkillsSection(8.5, 0.025, 54, 7, 3.5, boxTexture.skrillex);
+    //allSkillsSection(9, 0.01, 45, 15, 15, boxTexture.edmText);
+	let edmtext = "SOFT SKILLS\nClassification-6 Algs Clustering-2 Algs\nDimensionality Reduction-2 Algs \nRegression-3 Algs\n\n\n";
+	let edmtext2 = "ANALYTIC SKILL SET IN PYTHON\n(on a scale of 1-5)\nEDA(4) Model Building(5)\n Preprocessing(5)\nComputer Vision(5) Programming(5) \nData Visualization(5)"
+    
+	simpleText(9,0.01,45,edmtext,0.9);
+	createTextOnPlane(9,0.01,45+20,inputText.analyticalSkills,20,20);
+	createTextOnPlane(9-20-20-20,0.01,45+20,inputText.interests,40,20);
+	
+	
+	//allSkillsSection(9, 0.01, 20, 21, 10.5, inputText.staticPortfolio);
+	//create "software engineer text"
+ 
+ 
+ 	let staticPortfolio = "\n Electronics and Instrumentation \n\n04/2015 - 12/2020, 7.15GPA \nTechnical Courses - Neural Networks and Fuzzy Logics\n, Data Structures and Algorithms\n, Discrete Maths for Computer Programming\n, Digital Image Processing";
+	simpleText(9, 0.01, 20, staticPortfolio, 1.2);
     //lensflare
     createLensFlare(50, -50, -800, 200, 200, boxTexture.lensFlareMain);
-
+	
+	loadPrakharEducationText('EDUCATION',0.01,20,3);
+	loadPrakharEducationText('BITS Pilani Hyderabad Campus',0.01,24,1);
     loadRyanText();
     loadEngineerText();
-
+	loadTimelineText();
+    
     let touchText, instructionsText;
     if (isTouchscreenDevice()) {
       touchText = 'Touch boxes with your \nfinger to open links';
@@ -1151,10 +1351,101 @@ Ammo().then((Ammo) => {
     simpleText(9, 0.01, 5, instructionsText, 1.25);
 
     simpleText(23, 0.01, -60, touchText, 1.5);
-    simpleText(-50, 0.01, -5, 'SKILLS', 3);
-    simpleText(-42, 0.01, -30, 'EXPERIENCE', 3);
-    simpleText(61, 0.01, -15, 'TIMELINE', 3);
+    simpleText(-50, 0.01, -5, 'PROGRAMMING SKILLS', 3);
+    simpleText(-42+42+24+24, 0.01, -30-10-10, "BREAK THE CODE LEARNING WALL EVERY SINGLE DAY THROUGH HARD WORK AND DETERMINATION\nEXPERIENCE IN BELIEVING TO BECOME A BETTER VERSION OF MYSELVES AND OTHERS EVERY SINGLE DAY :) \n MY THINKING Creative and Innovative mould of thinking, consistency, aspiration and motivation are the important skills \nfor a being to strive towards an ideal to reach to the sun.\n Every idea was started in a basic container like garage. Any impossible can be reached is my motto and \n one's thirst for  knowledge and passion will help her/him to leave a significant mark in any field. \nThus, I am inclined to become a Data Scientist.", 0.9);
+    simpleText(71, 0.01, -34, 'MY INCREDIBLE \n DATA SCIENCE \n JOURNEY!', 2);
 
+	//simpleText(71, 0.01, 14+14+10, 'REFERENCES \n & OTHER\n PROJECTS!', 2);
+	let otherProjects = "0.)Coursera Specializations\n\n1.) Neural Networks and Fuzzy Logics-Course Project on various Machine\nLearning Algorithms using matlab and python(keras)\n\n2.) Avengers Detector Deployed App on hugginface.io website using\npython (face detection api)\n\n3.) Internship Data Analysis Project mainly using python(Beautiful soup, firebase, firestore,also wrote function to keep data in mongodb)\n\nThousands of Barcode Generator GUI using Dynamic Programming in\nPython-Tkinter\n\n4.) Studied basics of Opencv Computer Vision Book using\npython(opencv)\n\n5.)Hand Gesture Recognition using React JS(Tensorflow.js)\n";
+	createTextOnPlane(71, 0.02, 14+14+10+4+20, inputText.otherProjectReferences, 40, 40);
+	createTextOnPlane(24+15,0.1,-20+20+10,inputText.timelinePicOne,20,40);
+	createTextOnPlane(24+15,0.1,-20+20+20+20+20,inputText.timelinePicTwo,20,40);
+	createBox(
+      51,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/Coursera-Specializations",
+      0x000000,
+      true
+    );
+	createBox(
+      51+5,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/NeuralNetworksAndFuzzyLogic",
+      0x000000,
+      true
+    );
+	createBox(
+      51+5+5,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/AvengersDetector",
+      0x000000,
+      true
+    );
+	createBox(
+      51+5+5+5,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/DataRepo",
+      0x000000,
+      true
+    );
+	createBox(
+      51+5+5+5+5,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/tkinter-barcode",
+      0x000000,
+      true
+    );
+	createBox(
+      51+5+5+5+5+5,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/opencv-computerVision",
+      0x000000,
+      true
+    );
+	createBox(
+      51+5+5+5+5+5+5,
+      2,
+      14+14+13,
+      4,
+      4,
+      1,
+      boxTexture.Github,
+      "https://github.com/prakHr/HandGestureRecognition",
+      0x000000,
+      true
+    );
+	//simpleText(71, 0.02, 14+14+10+4, otherProjects, 1.2);
+	
     wallOfBricks();
     createTriangle(63, -55);
     createTriangle(63, -51);
@@ -1172,7 +1463,11 @@ Ammo().then((Ammo) => {
 
   //check if user's browser has WebGL capabilities
   if (WEBGL.isWebGLAvailable()) {
-    start();
+    
+    
+	start();
+	
+
   } else {
     noWebGL();
   }

@@ -21,9 +21,9 @@
 
       <link rel="icon" href="favicon.ico" />
     <link rel="alternate" type="application/json+oembed" href="%PUBLIC_URL%/website-screenshot.png"/>
-    <meta property="og:title" content="Ryan Floyd's Portfolio" />
-    <meta property="og:description" content="The personal website of Ryan Floyd"/>
-    <meta property="og:url" content="www.ryan-floyd.com" />
+    <meta property="og:title" content="Prakhar Gandhi's Portfolio" />
+    <meta property="og:description" content="The personal home of Prakhar Gandhi built with Creativity and love"/>
+    <meta property="og:url" content="www.prakHr-bumblebee.com" />
     <meta name="image" property="og:image" content="https://ryanfloyd-dev.herokuapp.com/website-screenshot.png"/>
 
     <meta charset="UTF-8" />
@@ -31,28 +31,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Ryan Floyd's Portfolio</title>
+    <title>Prakhar Gandhi's Magic Portfolio</title>
   </head>
   <body id="document-body">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P437XK4"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- End Google Tag Manager (noscript) -->
-    <div id="WEBGLcontainer"></div>
-    <div id="joystick-wrapper"></div>
+	
+	<!--<div id="WEBGLcontainer2"  width="50px" height="5px" align="center">
+	<iframe src="videos/Recording.mp4"></iframe>
+	</div>-->
+	<video autoplay muted loop id="myVideo" width="10%" controls>
+		<source src="videos/Recording.mp4" type="video/mp4">
+	</video>
+	
+    <div id="WEBGLcontainer">
+		<!--<video src="videos/Recording.mp4" ></video>-->
+	</div>
+    <div id="joystick-wrapper">
+		
+	</div>
      <div class="fadeOutDiv preload-overlay" id="preload-overlay">
       <div class="start-page-content-div fadeOutDiv">
-        <h1 class="ryan-text postload fadeOutDiv">Hi, I'm <span class="yellow-text">Ryan Floyd!</span></h1>
-        <h1 class="postload start-page-text interactive-site-text fadeOutDiv">This is an interactive 3D site built with Three.js!</h1>
-        <h1 id="appDirections" class="start-page-text joystick-directions-text postload fadeOutDiv">Move the ball around with the arrow keys on the keyboard.</h1>
-        <button id="start-button" class="postload fadeOutDiv">EXPLORE</button>
+        <h1 class="ryan-text postload fadeOutDiv" >Hi, I'm <span class="yellow-text" style="color:blue;">Prakhar Gandhi!</span></h1>
+        <h1 class="postload start-page-text interactive-site-text fadeOutDiv" style="color:green;">This is my personal home Are you into metaverse, nfts, blockchains, ML, DL, AI and the ultimate World of Competitive Programming because I am into it!</h1>
+        <h1 id="appDirections" class="start-page-text joystick-directions-text postload fadeOutDiv" style="color:darkgreen;">Play with the earth around with the arrow keys on the keyboard.</h1>
+        <button id="start-button" class="postload fadeOutDiv"  style="color:gold;">Welcome & Explore my world!</button>
       </div>
-      <div class="trinity-rings-spinner preload">
+	  <div class="trinity-rings-spinner preload">
         <div class="circle preload"></div>
         <div class="circle preload"></div>
         <div class="circle preload"></div>
       </div>
     <div class="loading-text-div preload">Loading<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span></div>
+	<button id="myBtn" onclick="myFunction()">Pause</button>
     <div id="tooltip"></div>
     <script type="x-shader/x-vertex" id="vertexShader">
 
