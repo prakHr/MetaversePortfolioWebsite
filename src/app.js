@@ -68,7 +68,6 @@ import {
 } from './resources/utils';
 
 export let cursorHoverObjects = [];
-
 // start Ammo Engine
 Ammo().then((Ammo) => {
   //Ammo.js variable declaration
@@ -109,7 +108,7 @@ Ammo().then((Ammo) => {
   function createGridPlane() {
     // block properties
     let pos = { x: 0, y: -0.25, z: 0 };
-    let scale = { x: 175, y: 0.5, z: 175 };
+    let scale = { x: 175+100, y: 0.5, z: 175+100 };
     let quat = { x: 0, y: 0, z: 0, w: 1 };
     let mass = 0; //mass of zero = infinite mass
 
@@ -168,8 +167,9 @@ Ammo().then((Ammo) => {
   }
 
   // create ball
-  function createBall() {
-    let pos = { x: 8.75, y: 0, z: 0 };
+  function createBall(xx,yy,zz) {
+    //let pos = { x: 8.75, y: 0, z: 0 };
+	let pos = { x: xx, y: yy, z: zz };
     let radius = 2;
     let quat = { x: 0, y: 0, z: 0, w: 1 };
     let mass = 3;
@@ -194,9 +194,10 @@ Ammo().then((Ammo) => {
 
     ball.castShadow = true;
     ball.receiveShadow = true;
-
+	ball.name="ball";
+	
     scene.add(ball);
-
+	
     //Ammojs Section
     let transform = new Ammo.btTransform();
     transform.setIdentity();
@@ -709,6 +710,59 @@ Ammo().then((Ammo) => {
 
     cursorHoverObjects.push(billboardSign);
   }
+  //function to create arrow signs
+  function createBillboardWithArrows(){
+	const pointer = new THREE.Vector2();
+    const raycaster = new THREE.Raycaster();
+	
+    const onMouseDown = (event) => {
+      // calculate pointer position in normalized device coordinates
+      // (-1 to +1) for both components
+      pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(pointer, camera);
+	  let intersects = raycaster.intersectObjects(scene.children);
+		
+      // for (let i = 0; i < intersects.length; i++) {
+      //   console.log(intersects);
+      // }
+
+      // change color of objects intersecting the raycaster
+      // for (let i = 0; i < intersects.length; i++) {
+      //   intersects[i].object.material.color.set(0xff0000);
+      // }
+
+      // change color of the closest object intersecting the raycaster
+      if (intersects.length > 0) {
+        //intersects[0].object.material.color.set(0xff0000);
+		//var ball = scene.getObjectByName( "ball" ,true);
+		//console.log("clicked on object");
+		//console.log("intersects[0]",intersects[0]);
+		//console.log("intersects[0].point",intersects[0].point);
+		//console.log("intersects[0].point.x",intersects[0].point.x);
+		var direction =  intersects[0].point;
+		//console.log("direction=",direction);
+		//ball.position.set(direction.x,direction.y,direction.z);
+		//console.log("ball",ball);
+		createBall(direction.x,direction.y,direction.z);
+		//ball.position.x=intersects[0].point.x;
+		//ball.position.x=intersects[0].point.y;
+		//ball.position.x=intersects[0].point.z;
+		//moveBall();
+		//camera.lookAt(intersects[0].point);
+		//renderer.render(scene,camera);
+		//camera.getWorldDirection( direction );
+		//var distance = -1;
+		//camera.position.add( direction.multiplyScalar(distance) );
+      }
+	  
+    };
+	
+    window.addEventListener('mousedown', onMouseDown);
+	
+
+  }
 
   //create X axis wall around entire plane
   function createWallX(x, y, z) {
@@ -1026,7 +1080,7 @@ Ammo().then((Ammo) => {
     //check to see if ball escaped the plane
     if (ballObject.position.y < -50) {
       scene.remove(ballObject);
-      createBall();
+      createBall(8.75,0,0);
     }
 
     //check to see if ball is on text to rotate camera
@@ -1071,19 +1125,22 @@ Ammo().then((Ammo) => {
     document.getElementById('joystick').style.visibility = 'visible';
   }
 
+
   //initialize world and begin
   function start() {
+	
     createWorld();
     createPhysicsWorld();
 
     createGridPlane();
-    createBall();
+    createBall(8.75,0,0);
 
     createWallX(87.5, 1.75, 0);
     createWallX(-87.5, 1.75, 0);
     createWallZ(0, 1.75, 87.5);
     createWallZ(0, 1.75, -87.5);
 
+	
     createBillboard(
       -80,
       2.5,
@@ -1459,6 +1516,8 @@ linux virtual machine.`;
     setupEventHandlers();
     // window.addEventListener('mousemove', onDocumentMouseMove, false);
     renderFrame();
+	createBillboardWithArrows();
+
   }
 
   //check if user's browser has WebGL capabilities

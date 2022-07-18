@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\node_modules\\three\\src",
     "\\src",
     "\\src\\resources",
-    "\\static",
-    "\\videos"
+    "\\static"
   ],
   "SelectedNode": "\\index.html",
   "PreviewInSolutionExplorer": false
