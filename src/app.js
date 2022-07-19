@@ -83,7 +83,25 @@ Ammo().then((Ammo) => {
 
   // list of hyperlink objects
   var objectsWithLinks = [];
+  //function to create a video element in existing webgl graphics
+  function createVideo(videoId,xx,yy,zz){
+	const geometry = new THREE.BoxGeometry( 30, 15, 0 );
+	// invert the geometry on the x-axis so that all of the faces point inward
+	//geometry.scale( 1, 1, 1 );
+  	const video = document.getElementById( videoId );
+	video.play();
 
+	const texture = new THREE.VideoTexture( video );
+	const material = new THREE.MeshBasicMaterial( { map: texture } );
+
+	const mesh = new THREE.Mesh( geometry, material );
+	mesh.position.setX(xx);
+	mesh.position.setY(yy);
+	mesh.position.setZ(zz);
+
+	scene.add( mesh );
+  }
+  
   //function to create physics world with Ammo.js
   function createPhysicsWorld() {
     //algortihms for full (not broadphase) collision detection
@@ -1517,7 +1535,7 @@ linux virtual machine.`;
     // window.addEventListener('mousemove', onDocumentMouseMove, false);
     renderFrame();
 	createBillboardWithArrows();
-
+	createVideo('video',26.875+20,8.5,-80);
   }
 
   //check if user's browser has WebGL capabilities
