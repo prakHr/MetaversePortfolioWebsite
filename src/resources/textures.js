@@ -20,6 +20,7 @@ boxTexture.lensFlareMain = '../src/jsm/lensflare0.png';
 //boxTexture.skrillex = '../src/jsm/skrillex.png';
 boxTexture.edmText = '../src/jsm/EDM.png';
 boxTexture.writing = '../src/jsm/writing.png';
+boxTexture.youtube = '../src/jsm/youtube.png';
 
 //material textures
 let stoneTexture = '../src/jsm/stone.png';

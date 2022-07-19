@@ -763,7 +763,8 @@ Ammo().then((Ammo) => {
 		//console.log("direction=",direction);
 		//ball.position.set(direction.x,direction.y,direction.z);
 		//console.log("ball",ball);
-		createBall(direction.x,direction.y,direction.z);
+		
+		setTimeout( function() { createBall(direction.x,direction.y,direction.z); }, 1000);			
 		//ball.position.x=intersects[0].point.x;
 		//ball.position.x=intersects[0].point.y;
 		//ball.position.x=intersects[0].point.z;
@@ -1344,7 +1345,18 @@ linux virtual machine.`;
       0x000000,
       false
     );
-
+	createBox(
+      27+7,
+      2,
+      -70,
+      4*2,
+      4,
+      1,
+      boxTexture.youtube,
+      'https://www.youtube.com/playlist?list=PLET6MRvUe-vPQG4hX8SGD0S4PrUXzblna',
+      0x000000,
+      false
+    );
     // createBox(
     //   44,
     //   2,
@@ -1373,9 +1385,10 @@ linux virtual machine.`;
 	
 
     // floatingLabel(3.875, 4.5, -70, 'Twitter');
-    floatingLabel(11.875, 4.5, -70, 'Github');
-    floatingLabel(19.125, 4.5, -70, 'LinkedIn');
-    floatingLabel(26.875, 4.5, -70, 'Email');
+    floatingLabel(11.875, 4.5+4.5/2, -70, 'My Github \n Account!');
+    floatingLabel(19.125, 4.5+4.5/2, -70, 'My LinkedIn \n Profile!');
+    floatingLabel(26.875, 4.5+4.5/2, -70, 'My Email!');
+	floatingLabel(26.875+7, 4.5+4.5/2, -70, 'My Youtube \n Channel!');
     // floatingLabel(35, 6.5, -70, '  Static \nWebsite');
     //floatingLabel(35, 6.5, -70, '   How I \nmade this');
     // floatingLabel(44, 6.5, -70, '   How I \nmade this');

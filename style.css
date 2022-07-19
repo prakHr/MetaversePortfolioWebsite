@@ -12,7 +12,7 @@ body {
 }
 
 canvas {
-  cursor:none;
+
   display: block;
   overscroll-behavior: none;
   width: 100vw;
