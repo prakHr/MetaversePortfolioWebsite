@@ -3,9 +3,8 @@
     "",
     "\\src",
     "\\src\\resources",
-    "\\static",
-    "\\videos"
+    "\\static"
   ],
-  "SelectedNode": "\\style.css",
+  "SelectedNode": "\\src\\resources\\textures.js",
   "PreviewInSolutionExplorer": false
 }
