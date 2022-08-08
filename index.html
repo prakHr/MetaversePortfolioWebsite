@@ -117,8 +117,46 @@
       }
     </script>
 
-
-
+		<div id="menu">
+			<button id="table">CODING RESOURCES</button>
+			<button id="table-back">ONE RESOURCE BACKWARD</button>
+			
+		</div>
+	<script>
+		const buttonTable = document.getElementById( 'table' );
+		const buttonTableBack = document.getElementById( 'table-back' );
+		
+		var i = 0;
+		buttonTable.addEventListener( 'click', function () {
+			const cars = [
+			"For Mathematics :- Project Euler", "For Biology :- Project Rosalind", "For Dynamic Programming :- Striver or TakeUForward,Utkarsh Gupta,Karthik Arora and Aditya Verma",
+			"For Python :- Code with Harry and sentdex","For Django :- Code with Harry and Clever Programmer","For Flask :- Dash framework to Prefer","For Dash :- Charming data", 
+			"For Multithreading in python :- Stack Overflow", "For Game Development in python and java :- Martin Yanev","For Android Development :- Johan Jurrius",
+			"For Virtual Reality :- Lee Stemkoski","For DSA Cheatsheets :- Love Babbar using codeLibrary,Striver and GeeksForGeeks","For System Design :- Gaurav Sen and Dinesh Varyani",
+			"For linked list, intervals, stacks and queues :- Dinesh Varyani","Last Tip for everyone:- Focus on logic building, not on language"
+			];
+			
+			//console.log("Need to change the text dynamically now");		
+			document.getElementById("appDirections").innerHTML =cars[i%(cars.length)];
+			i=i+1;
+		} );
+		buttonTableBack.addEventListener( 'click', function () {
+			const cars = [
+			"For Mathematics :- Project Euler", "For Biology :- Project Rosalind", "For Dynamic Programming :- Striver or TakeUForward,Utkarsh Gupta,Karthik Arora and Aditya Verma",
+			"For Python :- Code with Harry and sentdex","For Django :- Code with Harry and Clever Programmer","For Flask :- Dash framework to Prefer","For Dash :- Charming data", 
+			"For Multithreading in python :- Stack Overflow", "For Game Development in python and java :- Martin Yanev","For Android Development :- Johan Jurrius",
+			"For Virtual Reality :- Lee Stemkoski","For DSA Cheatsheets :- Love Babbar using codeLibrary,Striver and GeeksForGeeks","For System Design :- Gaurav Sen and Dinesh Varyani",
+			"For linked list, intervals, stacks and queues :- Dinesh Varyani","Last Tip for everyone:- Focus on logic building, not on language"
+			];
+			
+			//console.log("Need to change the text dynamically now");		
+			document.getElementById("appDirections").innerHTML =cars[i%(cars.length)];
+			i=i-1;
+			if(i<0){
+				i=cars.length-1;
+			}
+		} );
+	</script>
     <script src="build/app.bundle.js"></script>
   </body>
 </html>

@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { WEBGL } from './WebGL';
 import * as Ammo from './builds/ammo';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { CSS3DRenderer } from 'three-css3drenderer';
+import { CSS3DObject } from 'three-css3drenderer';
 
 import {
   billboardTextures,
@@ -98,7 +100,6 @@ Ammo().then((Ammo) => {
 	mesh.position.setX(xx);
 	mesh.position.setY(yy);
 	mesh.position.setZ(zz);
-
 	scene.add( mesh );
   }
   
@@ -1104,8 +1105,8 @@ Ammo().then((Ammo) => {
 
     //check to see if ball is on text to rotate camera
     rotateCamera(ballObject);
-  }
-
+  };
+ 
   //document loading
   manager.onStart = function (item, loaded, total) {
     //console.log("Loading started");
@@ -1548,7 +1549,9 @@ linux virtual machine.`;
     // window.addEventListener('mousemove', onDocumentMouseMove, false);
     renderFrame();
 	createBillboardWithArrows();
+	
 	createVideo('video',26.875+20,8.5,-80);
+	
   }
 
   //check if user's browser has WebGL capabilities
