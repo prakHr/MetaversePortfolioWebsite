@@ -34,5 +34,6 @@
     "stats.js": "^0.17.0",
     "three": "^0.117.1",
     "three-css3drenderer": "^1.0.1"
+    
   }
 }
