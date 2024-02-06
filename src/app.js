@@ -1208,6 +1208,28 @@ Ammo().then((Ammo) => {
 	(error)=>{
 	//console.log(error);
 	});
+    const gltfLoader1 = new GLTFLoader();
+    gltfLoader1.load("/static/models/mech_drone/scene.gltf",(gltf)=>{
+	    //console.log("INSERTED ROBOT HERE",gltf);
+	    //for(let i=0;i<gltf.scene.children.length;i++){
+	    //  scene.add(gltf.scene.children[i]);
+	    //}
+	    // const robot = gltf.scene;
+	    // robot.scale.set(5,5,5);
+	    // house.position.set(glowingParticles.x,glowingParticles.y,glowingParticles.z);
+	    // scene.add(robot);
+	    const robot = gltf.scene;
+	    robot.scale.set(50,50,50);
+	    robot.position.set(0,15,0);
+	    
+	    scene.add(robot);
+   },
+   (progress)=>{
+   //console.log(progress);
+   },
+   (error)=>{
+   //console.log(error);
+   });
 	
     ryanFloydWords(11.2, 1, -20);
 	loadPrakharEducationText('HACKATHON\n PROJECT',1.25,-75-10,2);
