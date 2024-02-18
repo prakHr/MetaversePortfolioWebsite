@@ -72,6 +72,7 @@ import {
 export let cursorHoverObjects = [];
 // start Ammo Engine
 Ammo().then((Ammo) => {
+
   //Ammo.js variable declaration
   let rigidBodies = [],
     physicsWorld;
@@ -184,7 +185,7 @@ Ammo().then((Ammo) => {
     // add to world
     physicsWorld.addRigidBody(body);
   }
-
+  
   // create ball
   function createBall(xx,yy,zz) {
     //let pos = { x: 8.75, y: 0, z: 0 };
@@ -213,7 +214,7 @@ Ammo().then((Ammo) => {
 
     ball.castShadow = true;
     ball.receiveShadow = true;
-	ball.name="ball";
+	  ball.name="ball";
 	
     scene.add(ball);
 	
@@ -258,6 +259,33 @@ Ammo().then((Ammo) => {
     rigidBodies.push(ballObject);
   }
 
+  // create cube
+  function createCube(){
+    let pos = { x: -10, y: 10, z: 0 };
+    const cubeScale = { x: 8, y: 8, z: 8 };
+    
+    var geometry = new THREE.BoxGeometry(cubeScale.x, cubeScale.y, cubeScale.z);
+    var texture = new THREE.TextureLoader().load('./src/jsm/lensflare0.png');
+    var material = new THREE.MeshBasicMaterial(
+      {
+        map:texture,
+    
+      }
+    );
+    var cube = new THREE.Mesh(geometry,material);
+    cube.position.set(pos.x, pos.y, pos.z);
+    scene.add(cube);
+
+    function animateCube(){
+      requestAnimationFrame(animateCube);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene,camera);
+    }
+    animateCube();
+  
+  }
+  
   //create beach ball Mesh
   function createBeachBall() {
     let pos = { x: 20, y: 30, z: 0 };
@@ -1154,6 +1182,8 @@ Ammo().then((Ammo) => {
 
     createGridPlane();
     createBall(8.75,0,0);
+
+    createCube();  
 
     createWallX(87.5, 1.75, 0);
     createWallX(-87.5, 1.75, 0);
