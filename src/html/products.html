@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/sankey.js"></script>
+    <script src="https://code.highcharts.com/modules/arc-diagram.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<title>>>>V>I>S>I>O>N>>></title>
+	
+    <script src= 
+    "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+    
+</head>
+<body>
+	<h1>Machine Learning based Inventory....</h1>
+	<div style="text-align: center;" class="BTN5">
+	<h1>TEXT PRODUCTS</h1>
+	<button id="BTN5">Product 5</button>
+
+	<div class="mb8" id="BTNCLASS5">
+		<input type="text" name="autoS" id="autoS" style="height: 200px; width: 1000px;" placeholder="Enter your sentence to be searched For example I am sitting in airplane."></input>
+		<br>
+		<button id="autosearchBtn" style="background-color:purple;color: white;height: 25px;border: 1px solid blueviolet;border-radius: 10px;">Auto Search Sentence</button>
+		
+        
+		<!-- <script src="../js/autosearchApp.js"></script>
+ -->
+		<script>
+			const btn5 = document.getElementById("BTN5");
+			
+			btn5.addEventListener("click",function(){
+				var div = document.getElementById("BTNCLASS5");
+				div.style.display= div.style.display == "none" ? "block" : "none";
+				// console.log(div);
+				
+			});
+			
+		</script>
+         <div id="viz" style="height: 700px; max-width: 800px; margin: 0 auto;"></div>
+    
+    <script type="module">
+
+        import winkNlp from 'https://cdn.skypack.dev/wink-nlp';
+        import winkEngLiteWebModel from 'https://cdn.skypack.dev/wink-eng-lite-web-model';
+        
+        
+        const getTags = (data) => {
+            const nlp = winkNlp(winkEngLiteWebModel);
+            let its = nlp.its;
+            let as = nlp.as;
+            const doc = nlp.readDoc(data);
+            const result = doc.tokens().out(its.pos);
+            return result;
+        }
+
+        const getCleanedTerms = (data) => {
+            let punctuation = '!"#$%&\()*+,./:;<=>?@[\\]^_`{|}~';
+            let regex = new RegExp("[" + punctuation + "]", "g");
+            let result = data.split(" ").map(
+                d => d
+                .replace(regex, "")
+                .toLowerCase()
+                    );
+            return result.join(" ");
+        }
+
+        const getCoOccurrence = (data,howmany) => {
+            let result = new Array();
+            for (let i = 0; i < data.length; i++) {
+                if (typeof data[i + howmany] === "string") {
+                result.push(`${data[i]} ${data[i+howmany]}`);
+                }
+            }
+            return result;
+        }
+
+        const getCount = (data) => {
+            let temp = new Object();
+            let result = new Array();
+            for (let d of data) {
+                if (temp[d]) {
+                temp[d] += 1;
+                }
+                else {
+                temp[d] = 1;
+                } 
+            }
+            for (let t in temp) {
+                result.push( [t.split(" ")[0], t.split(" ")[1],temp[t]] );
+            }
+            return result;
+        }
+
+        const getChart = (data,chart_title) => {
+            Highcharts.chart(
+                "viz",
+                {
+                    //colors: ["#003f5c","#58508d","#58508d","#ff6361","#ffa600"],
+                    //colors: ["#cdb4db","#ffc8dd","#ffafcc","#bde0fe","#a2d2ff"],
+                    colors: ["#3A98B9","#FFF1DC","#E8D5C4","#EEEEEE"],
+                    title: {
+                        text: chart_title
+                    },
+                    series: [{
+                    keys: ["from", "to", "weight"],
+                    type: "arcdiagram",
+                    name: "Ngrams",
+                    linkWeight: 1,
+                    centeredLinks: true,
+                    dataLabels: {
+                        rotation: 90,
+                        y: 110,
+                        align: 'left',
+                        color: 'black'
+                        },
+                    offset: '65%',
+                    data: data
+                }]
+                }
+            )
+        }
+        var btnn = document.getElementById('autosearchBtn');
+        btnn.addEventListener('click', function(){
+            var text = document.getElementById('autoS').value;
+            
+            var cleaned = getCleanedTerms(text);
+            var nlp = winkNlp(winkEngLiteWebModel);
+            var its = nlp.its;
+            var doc = nlp.readDoc(cleaned);
+            var entities = doc.entities().out(its.detail);
+             
+            for(var i=0;i<entities.length;i++){
+                
+                var query = entities[i].value;
+                // var url = `https://en.wikipedia.org/w/api.php?action=opensearch&search="+ ${query} +"&format=json`
+
+                fetch(`https://en.wikipedia.org/w/api.php?&origin=*&action=opensearch&search=${query}&limit=5`)
+                .then(function(resp) {
+                    // console.log(resp);
+                    return resp.json();
+                })
+                .then(function(data) {
+                    // console.log(data);
+                    const para = document.createElement(`p-${i}`);
+                    para.innerText = JSON.stringify(data);
+                    document.body.appendChild(para);
+                })
+                
+            }
+            var tokens = getTags(cleaned);
+
+            var occurrence = getCoOccurrence(tokens,1);
+            var c = getCount(occurrence);
+            getChart(c,"Semantic proximity between POS tags");
+    })
+    </script>
+		 	
+		<br><br><br>
+	</div>
+</div>
+</body>
+</html>
