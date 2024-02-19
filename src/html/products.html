@@ -145,8 +145,37 @@
                 })
                 .then(function(data) {
                     // console.log(data);
-                    const para = document.createElement(`p-${i}`);
-                    para.innerText = JSON.stringify(data);
+                    var para = document.createElement(`p-${i}`);
+                    var htmlContent = "";
+                    var aa = [];
+                    var bb = [];
+                    for(var i=1;i<data.length;i++){
+                        var ele = data[i];
+                        // console.log("ele");
+                        // console.log(ele);
+
+                        for(var j=0;j<ele.length;j++)
+                        {   
+                            // console.log(i);
+                            // console.log("ele[j]");
+                            // console.log(ele[j]);  
+                            if(i==1)
+                            {
+                                aa.push(ele[j]);
+                                // htmlContent+=`<div>${ele[j]}</div>`
+                            }
+                            if(i==3){
+                                bb.push(ele[j]);
+                                // htmlContent+=`<a href="${ele[j]}">${ele[j]}<br></a>`   
+                            }
+                            
+                        }
+                        // console.log(data[i]);
+                    }
+                    for(var i=0;i<aa.length;i++){
+                        htmlContent+=`<div>${aa[i]}</div><a href="${bb[i]}">${bb[i]}<br><br><br><br></a>`
+                    }
+                    para.innerHTML = htmlContent;
                     document.body.appendChild(para);
                 })
                 
