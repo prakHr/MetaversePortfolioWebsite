@@ -26,7 +26,12 @@
 		<br>
 		<button id="autosearchBtn" style="background-color:purple;color: white;height: 25px;border: 1px solid blueviolet;border-radius: 10px;">Auto Search Sentence</button>
 		
-        
+
+        <!-- Load d3.js -->
+        <script src="https://d3js.org/d3.v4.js"></script>
+
+        <!-- Create a div where the graph will take place -->
+        <div id="my_dataviz"></div>
 		<!-- <script src="../js/autosearchApp.js"></script>
  -->
 		<script>
@@ -41,12 +46,15 @@
 			
 		</script>
          <div id="viz" style="height: 700px; max-width: 800px; margin: 0 auto;"></div>
-    
+        
     <script type="module">
 
         import winkNlp from 'https://cdn.skypack.dev/wink-nlp';
         import winkEngLiteWebModel from 'https://cdn.skypack.dev/wink-eng-lite-web-model';
-        
+        import fastDiceCoefficient from 'https://cdn.jsdelivr.net/npm/fast-dice-coefficient@1.0.3/+esm'
+        // Create the svg area
+        d3.selectAll("svg > *").remove();
+            
         
         const getTags = (data) => {
             const nlp = winkNlp(winkEngLiteWebModel);
@@ -185,7 +193,137 @@
             var occurrence = getCoOccurrence(tokens,1);
             var c = getCount(occurrence);
             getChart(c,"Semantic proximity between POS tags");
-    })
+
+
+            // Graph dimension
+            var margin = {top: 20, right: 20, bottom: 20, left: 20},
+                width = 430 - margin.left - margin.right,
+                height = 430 - margin.top - margin.bottom
+
+            var svg = d3.select("#my_dataviz")
+              .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+            // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_correlogram.csv", function(error, rows) {
+
+              // Going from wide to long format
+              // var data = [];
+              // rows.forEach(function(d) {
+              //   var x = d[""];
+              //   delete d[""];
+              //   for (var prop in d) {
+              //     var y = prop,
+              //       value = d[prop];
+              //     data.push({
+              //       x: x,
+              //       y: y,
+              //       value: +value
+              //     });
+              //   }
+              // });
+              var data = [];
+              var freqDict = {};
+              for(var t in tokens){
+                freqDict[t]+=1;
+              }
+              var ts = text.split(" ");
+              // console.log(ts);
+              for(var t1=0;t1<ts.length;t1++){
+                for(var t2=0;t2<ts.length;t2++){
+                    data.push({
+                        x:ts[t1],
+                        y:ts[t2],
+                        value:fastDiceCoefficient(ts[t1],ts[t2])
+                    })
+                }
+              }
+              // console.log(data);
+
+              // List of all variables and number of them
+              var domain = d3.set(data.map(function(d) { return d.x })).values()
+              var num = Math.sqrt(data.length)
+
+              // Create a color scale
+              var color = d3.scaleLinear()
+                .domain([-1, 0, 1])
+                .range(["#B22222", "#fff", "#000080"]);
+
+              // Create a size scale for bubbles on top right. Watch out: must be a rootscale!
+              var size = d3.scaleSqrt()
+                .domain([0, 1])
+                .range([0, 9]);
+
+              // X scale
+              var x = d3.scalePoint()
+                .range([0, width])
+                .domain(domain)
+
+              // Y scale
+              var y = d3.scalePoint()
+                .range([0, height])
+                .domain(domain)
+
+              // Create one 'g' element for each cell of the correlogram
+              var cor = svg.selectAll(".cor")
+                .data(data)
+                .enter()
+                .append("g")
+                  .attr("class", "cor")
+                  .attr("transform", function(d) {
+                    return "translate(" + x(d.x) + "," + y(d.y) + ")";
+                  });
+
+              // Low left part + Diagonal: Add the text with specific color
+              cor
+                .filter(function(d){
+                  var ypos = domain.indexOf(d.y);
+                  var xpos = domain.indexOf(d.x);
+                  return xpos <= ypos;
+                })
+                .append("text")
+                  .attr("y", 5)
+                  .text(function(d) {
+                    if (d.x === d.y) {
+                      return d.x;
+                    } else {
+                      return d.value.toFixed(2);
+                    }
+                  })
+                  .style("font-size", 11)
+                  .style("text-align", "center")
+                  .style("fill", function(d){
+                    if (d.x === d.y) {
+                      return "#000";
+                    } else {
+                      return color(d.value);
+                    }
+                  });
+
+
+              // Up right part: add circles
+              cor
+                .filter(function(d){
+                  var ypos = domain.indexOf(d.y);
+                  var xpos = domain.indexOf(d.x);
+                  return xpos > ypos;
+                })
+                .append("circle")
+                  .attr("r", function(d){ return size(Math.abs(d.value)) })
+                  .style("fill", function(d){
+                    if (d.x === d.y) {
+                      return "#000";
+                    } else {
+                      return color(d.value);
+                    }
+                  })
+                  .style("opacity", 0.8)
+
+            })
+
     </script>
 		 	
 		<br><br><br>
