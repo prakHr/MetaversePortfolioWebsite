@@ -25,7 +25,8 @@
 		<input type="text" name="autoS" id="autoS" style="height: 200px; width: 1000px;" placeholder="Enter your sentence to be searched For example I am sitting in airplane."></input>
 		<br>
 		<button id="autosearchBtn" style="background-color:purple;color: white;height: 25px;border: 1px solid blueviolet;border-radius: 10px;">Auto Search Sentence</button>
-		
+        <button id="clrsearchBtn" style="background-color:purple;color: white;height: 25px;border: 1px solid blueviolet;border-radius: 10px;">Clear Wiki Searches</button>
+        		
 
         <!-- Load d3.js -->
         <script src="https://d3js.org/d3.v4.js"></script>
@@ -35,6 +36,10 @@
 		<!-- <script src="../js/autosearchApp.js"></script>
  -->
 		<script>
+            var searchBtn = document.getElementById("clrsearchBtn")
+            searchBtn.addEventListener('click', function(){
+                $('.akm').remove();
+            });
 			const btn5 = document.getElementById("BTN5");
 			
 			btn5.addEventListener("click",function(){
@@ -181,7 +186,7 @@
                         // console.log(data[i]);
                     }
                     for(var i=0;i<aa.length;i++){
-                        htmlContent+=`<div>${aa[i]}</div><a href="${bb[i]}">${bb[i]}<br><br><br><br></a>`
+                        htmlContent+=`<div class="akm"><div>${aa[i]}</div><a href="${bb[i]}">${bb[i]}<br><br><br><br></a></div>`
                     }
                     para.innerHTML = htmlContent;
                     document.body.appendChild(para);
@@ -192,6 +197,7 @@
 
             var occurrence = getCoOccurrence(tokens,1);
             var c = getCount(occurrence);
+            // console.log(c);
             getChart(c,"Semantic proximity between POS tags");
 
 
@@ -208,39 +214,18 @@
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-            // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_correlogram.csv", function(error, rows) {
-
-              // Going from wide to long format
-              // var data = [];
-              // rows.forEach(function(d) {
-              //   var x = d[""];
-              //   delete d[""];
-              //   for (var prop in d) {
-              //     var y = prop,
-              //       value = d[prop];
-              //     data.push({
-              //       x: x,
-              //       y: y,
-              //       value: +value
-              //     });
-              //   }
-              // });
+            
               var data = [];
-              var freqDict = {};
-              for(var t in tokens){
-                freqDict[t]+=1;
-              }
-              var ts = text.split(" ");
-              // console.log(ts);
+              var ts = c;
               for(var t1=0;t1<ts.length;t1++){
-                for(var t2=0;t2<ts.length;t2++){
-                    data.push({
-                        x:ts[t1],
-                        y:ts[t2],
-                        value:fastDiceCoefficient(ts[t1],ts[t2])
-                    })
-                }
+                data.push({
+                    x:ts[t1][0],
+                    y:ts[t1][1],
+                    value:ts[t1][2]
+                })
+                
               }
+
               // console.log(data);
 
               // List of all variables and number of them
