@@ -36,6 +36,13 @@
 	height: 100%; 
 	display: none;
 }
+#BTNCLASS6{
+	text-align: center;
+	background-color: goldenrod;
+	width: 100%;
+	height: 100%; 
+	display: none;
+}
 
 .BTN1 #BTN1{
 	background-color: lightyellow;
@@ -62,6 +69,12 @@
 	border-radius: 10px;
 }
 .BTN5 #BTN5{
+	background-color: lightyellow;
+	color: orangered;
+	border: 1px solid darkslateblue;
+	border-radius: 10px;
+}
+.BTN6 #BTN6{
 	background-color: lightyellow;
 	color: orangered;
 	border: 1px solid darkslateblue;
