@@ -463,25 +463,24 @@
                     <video autoplay playsinline muted id="wc" width="224" height="224"></video>
                 </div>
             </div>
-            <button type="button" id="0" onclick="handleButton(this)" >Rock</button>
-            <button type="button" id="1" onclick="handleButton(this)" >Paper</button>
-            <button type="button" id="2" onclick="handleButton(this)" >Scissors</button>
-            <button type="button" id="3" onclick="handleButton(this)" >Spock</button>
-            <button type="button" id="4" onclick="handleButton(this)" >Lizard</button>
-            <div id="rocksamples">Rock Samples:</div>
-            <div id="papersamples">Paper Samples:</div>
-            <div id="scissorssamples">Scissors Samples:</div>
-            <div id="spocksamples">Spock Samples:</div>
-            <div id="lizardsamples">Lizard Samples:</div>
+            <button type="button" id="0" onclick="handleButton(this)" >Click to get Sample 1</button>
+            <button type="button" id="1" onclick="handleButton(this)" >Click to get Sample 2</button>
+            <button type="button" id="2" onclick="handleButton(this)" >Click to get Sample 3</button>
+            <button type="button" id="3" onclick="handleButton(this)" >Click to get Sample 4</button>
+            <!-- <button type="button" id="4" onclick="handleButton(this)" >Lizard</button> -->
+            <div id="rocksamples">Predicted Image1:</div>
+            <div id="papersamples">Predicted Image2:</div>
+            <div id="scissorssamples">Predicted Image3:</div>
+            <div id="spocksamples">Predicted Image4:</div>
             <button type="button" id="train" onclick="doTraining()" >Train Network</button>
             <div id="dummy">Once training is complete, click 'Start Predicting' to see predictions, and 'Stop Predicting' to end. Once you are happy with your model, click 'Download Model' to save the model to your local disk.</div>
             <button type="button" id="startPredicting" onclick="startPredicting()" >Start Predicting</button>
             <button type="button" id="stopPredicting" onclick="stopPredicting()" >Stop Predicting</button>
             <button type="button" id="saveModel" onclick="saveModel()" >Download Model</button>
             <div id="prediction"></div>
-            <button onclick="prev()">prev</button>
+            <button onclick="prev()" style="color:white;background-color:purple;border:2px solid white;border-radius: 8px;">prev</button>
             <img src="../images/sc.jpg" alt="" style="width:500px; height: 400px;" id="carimg">
-            <button id="carbtn" onclick="next()">Next</button>
+            <button id="carbtn" onclick="next()" style="color:white;background-color:purple;border:2px solid white;border-radius: 8px;">Next</button>
 
         </div>
         

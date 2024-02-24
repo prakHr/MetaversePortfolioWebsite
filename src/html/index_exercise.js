@@ -121,11 +121,21 @@ async function predict() {
 	
             
 	}
+	function wait(ms){
+	   var start = new Date().getTime();
+	   var end = start;
+	   while(end < start + ms) {
+	     end = new Date().getTime();
+	  }
+	}
 	var cbtn = document.getElementById("carbtn");
 	if(predictionText=="I see Rock"){
 		next();
+		wait(1000);
+
 	}else if(predictionText=="I see Paper"){
 		prev();
+		wait(1000);
 	}
 	document.getElementById("prediction").innerText = predictionText;
 				
