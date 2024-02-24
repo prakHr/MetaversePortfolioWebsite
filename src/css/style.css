@@ -43,6 +43,13 @@
 	height: 100%; 
 	display: none;
 }
+#BTNCLASS7{
+	text-align: center;
+	background-color: goldenrod;
+	width: 100%;
+	height: 100%; 
+	display: none;
+}
 
 .BTN1 #BTN1{
 	background-color: lightyellow;
@@ -79,6 +86,41 @@
 	color: orangered;
 	border: 1px solid darkslateblue;
 	border-radius: 10px;
+}
+.BTN6 #BTN7{
+	background-color: lightyellow;
+	color: orangered;
+	border: 1px solid darkslateblue;
+	border-radius: 10px;
+}
+
+.carousel {
+  position: relative;
+  width: 50%;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+}
+
+.carousel-slide {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+	height: 50%;
+  width: 50%;
+}
+
+
+#prevBtn {
+  left: 0;
+}
+
+#nextBtn {
+  right: 0;
 }
 .Bigletter{
 	color: red;
