@@ -11,7 +11,8 @@
     "dev": "concurrently \"webpack-dev-server --output-public-path=/build/ --mode development --progress --open --hot --port 8080\" \"node server.js --port 3000\"",
     "build": "webpack --mode production --progress",
     "start": "react-scripts --openssl-legacy-provider start && node server.js",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack -p",
+    "postinstall": "npx playwright install"
   },
   "author": "Ryan Floyd",
   "license": "MIT",
