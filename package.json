@@ -12,7 +12,7 @@
     "build": "webpack --mode production --progress",
     "start": "react-scripts --openssl-legacy-provider start && node server.js",
     "heroku-postbuild": "webpack -p",
-    "postinstall": "wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.6.13_amd64.deb && sudo dpkg -i apt_1.6.13_amd64.deb && npx playwright install && npx playwright install-deps"
+    "postinstall": "curl -O http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.6.13_amd64.deb && sudo dpkg -i apt_1.6.13_amd64.deb && npx playwright install && npx playwright install-deps"
   },
   "author": "Ryan Floyd",
   "license": "MIT",
