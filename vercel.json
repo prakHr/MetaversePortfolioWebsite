@@ -10,7 +10,7 @@
     {
       "src": "/api/playwright",
       "dest": "/api/playwright/handler.js"
-    },
-    
+    }
+
   ]
 }
