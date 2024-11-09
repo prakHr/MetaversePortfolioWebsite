@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-   <style>
+	<style>
 		/* Basic styling for the table */
 		Table {
 		  width: 100%;
@@ -25,7 +25,7 @@
 		Table tbody tr:nth-of-type(odd) {
 		  background-color: #009879;
 		}
-	 </style>
+	  </style>
   <head>
 	<div class="cursor"></div>
 	<script>
@@ -73,6 +73,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" href="style.css" />
+
     <title>Prakhar Gandhi's Advanced Portfolio or my hyperbolic time chamber</title>
   </head>
   <body id="document-body">
@@ -118,8 +119,7 @@
         <div class="circle preload"></div>
       </div>
     <div class="loading-text-div preload">Loading<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span></div>
-	
-    <div id="tooltip"></div>
+	<div id="tooltip"></div>
     <script type="x-shader/x-vertex" id="vertexShader">
 
       varying vec3 vWorldPosition;
@@ -133,7 +133,7 @@
 
       }
     </script>
-
+	<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script type="x-shader/x-fragment" id="fragmentShader">
 
       uniform vec3 topColor;
@@ -149,15 +149,19 @@
       	gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h, 0.0 ), exponent ), 0.0 ) ), 1.0 );
 
       }
-
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    
+    
 		<div id="menu">
 			<button id="table">CODING RESOURCES</button>
 			<button id="table-back">ONE RESOURCE BACKWARD</button>
 			
+
 		</div>
-        <form action="" id="login-form">
+	
+		
+		
+		<form action="" id="login-form">
 			<div>
 				<label>Search:</label>
 				<input type="text" name="username" id="username" required/><br />
@@ -165,13 +169,15 @@
 
 			
 			<button id="btn" type="submit">Advanced Google Search for you...</button>
-        </form>
-        <br><br><br><br>
-        <br><br><br><br>
-        <div id="table-container"></div>
+    </form>
+	<br><br><br><br>
+	<br><br><br><br>
+	<div id="table-container"></div>
     
-	<script>
-        const loginForm = document.getElementById("login-form");
+		
+
+	<script type="module" >
+		const loginForm = document.getElementById("login-form");
 		const emailInput = document.getElementById("username");
 		loginForm.addEventListener("submit", (e) => {
 		e.preventDefault();
@@ -232,6 +238,14 @@
 		}
 	
 
+		// const axios = require(['axios']);
+		// const script = document.createElement('script');
+		// script.type = 'module';
+		// script.src = `${window.location.href}/src/html/googleSearch.js`;
+		// console.log(script.src);
+		// console.log(url);
+		// console.log("succ");
+		
 		const buttonTable = document.getElementById( 'table' );
 		const buttonTableBack = document.getElementById( 'table-back' );
 		
@@ -274,25 +288,62 @@
 				i=cars.length-1;
 			}
 		} );
-		var btn1 = document.getElementById('btn1');
+		var btn1 = document.getElementById('btn-search');
 		var btn2 = document.getElementById('btn2');
 		var btn3 = document.getElementById('btn3');
 
-		btn1.addEventListener('click', function() {
-			// console.log('button 1 is clicked!');
-		  // do something when button 1 is clicked
-		});
+		
+    // const description = document.getElementById('description').value;
+    
+		// Ensure description is properly formatted as JSON
+		// axios.post('http://localhost:8080/extract-url', { description: description })
+		// 	.then(function (response) {
+		// 		console.log(response);
+		// 		document.getElementById('result').textContent = response.data;
+		// 	})
+		// 	.catch(function (error) {
+		// 		console.error('Error:', error);
+		// 	});
+	
+	
+	// 	document.getElementById('extractButton').addEventListener('click', function (event)  {
+	// 		event.preventDefault();
+	// 		const description = document.getElementById('description').value;
+	// 		console.log(description);
+	// 		if (!description) {
+	// 			alert("Please enter a description.");
+	// 			return;
+	// 		}
+
+	// 	// try {
+	// 		console.log(208);
+	// 		fetch("http://localhost:8080/extract-url", {
+	// 			method: 'POST',
+	// 			cache: 'no-cache',
+	// 			credentials: 'same-origin',
+	// 			headers: {
+	// 				'Content-Type': 'application/json'
+	// 			},
+	// 			body: description,
+	// 		})
+	// 		.then(response => response)
+	// 		.then(json => console.log(json))
+	// 		.catch(e => console.error(e));
+		
+	// });
+
+
 
 		btn2.addEventListener('click', function() {
 			// console.log('button 2 is clicked!');
 		  // do something when button 2 is clicked
-		});
+	});
 
 		btn3.addEventListener('click', function() {
 			// console.log('button 3 is clicked!');
 		  // do something when button 3 is clicked
-		});
+	});
 	</script>
-    <script src="build/app.bundle.js"></script>
+    
   </body>
 </html>

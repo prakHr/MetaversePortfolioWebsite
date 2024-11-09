@@ -4,7 +4,6 @@ import * as Ammo from './builds/ammo';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { CSS3DRenderer } from 'three-css3drenderer';
 import { CSS3DObject } from 'three-css3drenderer';
-
 import {
   billboardTextures,
   boxTexture,

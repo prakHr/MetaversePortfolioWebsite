@@ -5,6 +5,7 @@ module.exports = {
   entry: {
     app: ['@babel/polyfill', './src/app.js'],
   },
+  
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.bundle.js',
@@ -12,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
