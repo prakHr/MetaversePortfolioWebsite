@@ -10,22 +10,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"webpack-dev-server --output-public-path=/build/ --mode development --progress --open --hot --port 8080\" \"node server.js --port 3000\"",
     "build": "webpack --mode production --progress",
-    "builds": [
-      {
-        "src": "./server.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/advSearch/(.*)",
-        "dest": "/advSearch/$1"
-      },
-      {
-        "src": "/(?!advSearch)(.*)",
-        "dest": "/"
-      }
-    ],
     "start": "react-scripts --openssl-legacy-provider start && node server.js",
     "heroku-postbuild": "webpack -p",
     "postinstall": "npm i playwright-core"
