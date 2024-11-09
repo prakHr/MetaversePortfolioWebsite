@@ -113,7 +113,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "index.html"));
 });
 
-app.get('/advSearch', (req, res) => {
+app.post('/advSearch', (req, res) => {
   // console.log(req.body);
   const username = req.body.data;
   // console.log(`username: ${username}`);
