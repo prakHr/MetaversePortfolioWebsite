@@ -12,7 +12,7 @@
     "build": "webpack --mode production --progress",
     "start": "react-scripts --openssl-legacy-provider start && node server.js",
     "heroku-postbuild": "webpack -p",
-    "vercel-build": "npm install playwright-core"
+    "postinstall": "npm i playwright && npx playwright install chromium && npx playwright install-deps"
   },
   "author": "Ryan Floyd",
   "license": "MIT",
