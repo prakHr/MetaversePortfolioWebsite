@@ -32,6 +32,7 @@
     "@playwright/test": "^1.48.2",
     "@tweenjs/tween.js": "^18.6.0",
     "ammo.js": "github:kripken/ammo.js",
+    "axios": "^1.7.7",
     "body-parser": "^1.20.3",
     "brain.js": "^2.0.0-beta.23",
     "cheerio": "^1.0.0",
