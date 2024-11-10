@@ -8,7 +8,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only the Playwright dependency and any necessary packages
-RUN npx -y playwright@1.48.1 install --with-deps
+RUN npm install
+
+RUN npx playwright install-deps
 
 
 # Copy the rest of your application code (e.g., googleSearch.js)

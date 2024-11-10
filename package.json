@@ -8,11 +8,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"webpack-dev-server --output-public-path=/build/ --mode development --progress --open --hot --port 8080\" \"node server.js --port 3000\"",
+    "dev": "webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
     "build": "webpack --mode production --progress",
-    "start": "react-scripts --openssl-legacy-provider start && node server.js",
-    "heroku-postbuild": "webpack -p",
-    "postinstall": "npx playwright install"
+    "start": "react-scripts --openssl-legacy-provider start",
+    "heroku-postbuild": "webpack -p"
   },
   "author": "Ryan Floyd",
   "license": "MIT",
@@ -37,6 +36,7 @@
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "dat.gui": "^0.7.7",
+    "dockerode": "^4.0.2",
     "express": "^4.17.1",
     "fast-dice-coefficient": "^1.0.3",
     "nvm": "^0.0.4",

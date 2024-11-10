@@ -157,7 +157,7 @@
 			<button id="table-back">ONE RESOURCE BACKWARD</button>
 			
 		</div>
-        <form action="" id="login-form">
+        <form  action="/advSearch" method="get" id="login-form">
 			<div>
 				<label>Search:</label>
 				<input type="text" name="username" id="username" required/><br />
@@ -173,22 +173,22 @@
 	<script>
         const loginForm = document.getElementById("login-form");
 		const emailInput = document.getElementById("username");
-		loginForm.addEventListener("submit", (e) => {
-		e.preventDefault();
+		loginForm.addEventListener("submit", () => {
+	
 
 		const email = emailInput.value;
 		const Url = new URL(`${window.location.href}advSearch`);
-		Url.port = '3000';
+		// Url.port = '3000';
 		const url = Url.toString();
-		// console.log(url);
-		// console.log(JSON.stringify({"data":email}).toString());
-		axios
-			.post(url, 
-			({"data":email}),
-			
-			)
+		console.log(url);
+		console.log(JSON.stringify({"data":email}).toString());
+		axios.get(url, {
+    	params: {
+        data: email // Sending 'data=email' as a query parameter
+	    }
+		})
 			.then((response) => {
-				// console.log(response);
+				console.log(response);
 				displayUrls(response);
 
 			});

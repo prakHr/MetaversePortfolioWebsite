@@ -1,0 +1,22 @@
+{
+  "name": "prakhar_gandhi_threejs",
+  "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
+  "description": "webpack starter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"webpack-dev-server --output-public-path=/build/ --mode development --progress --open --hot --port 8080\" \"node server.js --port 3000\"",
+    "build": "webpack --mode production --progress",
+    "start": "react-scripts --openssl-legacy-provider start && node server.js",
+    "heroku-postbuild": "webpack -p",
+    "postinstall": "npx playwright install"
+  },
+  "author": "Ryan Floyd",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "1.48.1"
+  }
+}
