@@ -3,8 +3,8 @@ const { chromium } = require('playwright-core');
 const express = require('express')
 // ADD THIS
 var cors = require('cors');
- import axios from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
-// const axios = require('axios');
+ // import axios from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+const axios = require('axios');
 
 // const Docker = require('dockerode');
 // const docker = new Docker(); // Defaults to connecting to the local Docker daemon
