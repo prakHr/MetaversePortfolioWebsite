@@ -89,60 +89,18 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "index.html"));
 });
 
-app.get('/advSearch', (req, res) => {
-  // console.log(req.body);
-  const username = req.query.data;
-  console.log(`username: ${username}`);
-  runContainer(username)
-  .then(inputString => {
-    // console.log(typeof(inputString));
-    // console.log(inputString);
 
-    // Step 1: Remove ANSI color codes
-    inputString = inputString.replace(/\u001b\[\d+m/g, "");
+app.post('/advSearch', (req, res) => {
+  const username = req.body.username;
 
-    // Step 2: Add double quotes around keys
-    inputString = inputString.replace(/(\w+):/g, '"$1":');
-
-    // Step 3: Fix the malformed URLs
-    // Fix incorrect "https":// to "https://"
-    inputString = inputString.replace(/"https":\/\//g, '"https://');
-
-    // Step 4: Remove stray characters like extra quotes
-    inputString = inputString.replace(/""/g, '"');  // Ensure that there aren't two double quotes before the URL
-
-    // Step 5: Clean up any malformed URLs or stray characters
-    inputString = inputString.replace(/'"/g, '"');  // Remove stray single quotes that may appear
-    inputString = inputString.replace("\\'",'"');
-
-    // Step 1: Remove unwanted escape sequences (for example, ANSI color codes or mismatched quotes)
-    inputString = inputString.replace(/"https":\/\/([^"]+)"/g, '"$1"');
-
-    // Step 2: Ensure URLs are properly formatted and fix any unmatched single or double quotes
-    inputString = inputString.replace(/['"]+/g, '"'); // Fix extraneous quotes
-
-    // Debugging output to see the modified string before JSON parsing
-    // console.log("Modified string:", inputString);
-
-    try {
-      // Step 6: Parse the cleaned-up string to JSON
-      let jsonObject = JSON.parse(inputString);
-      // console.log("Parsed JSON Object:", jsonObject);
-
-      // Send the JSON response back to the client
-      res.json(jsonObject);
-      // res.redirect(req.originalUrl);
-    } catch (parseError) {
-      // Log parsing errors and send an error response
-      // console.error("JSON parsing error:", parseError);
-      res.status(500).json({ error: 'Invalid JSON format in response' });
-    }
-  })
-  .catch(error => {
-    console.error("Error running container:", error);
-    res.status(500).json({ error: 'An error occurred during the search' });
-  });
-
+  // Call your Docker container or any other backend logic
+  axios.post('https://metaverse-portfolio-website.vercel.app/api/advSearch', { username })
+    .then(response => {
+      res.json(response.data);
+    })
+    .catch(error => {
+      res.status(500).json({ error: 'An error occurred during the search' });
+    });
 });
 
 // Redirect HTTP to HTTPS
