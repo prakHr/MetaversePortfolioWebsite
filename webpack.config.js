@@ -30,9 +30,9 @@ module.exports = {
   },
   plugins: [new CompressionPlugin()],
   devServer: {
-    // proxy: {
-    //   '/advSearch': 'https://metaverse-portfolio-website.vercel.app/', // Assuming your server is running on port 3000
-    // },
+    proxy: {
+      '/advSearch': 'https://metaverse-portfolio-website.vercel.app/', // Assuming your server is running on port 3000
+    },
     contentBase: path.join(__dirname, ''),
     compress: true,
     watchContentBase: true,
