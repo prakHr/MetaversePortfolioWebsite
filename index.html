@@ -184,17 +184,24 @@
 		const url = "https://metaverse-portfolio-website.vercel.app/advSearch";
 		console.log(url);
 		console.log(JSON.stringify({"data":email}).toString());
-		axios.get(url, {
-    	params: {
-        data: email // Sending 'data=email' as a query parameter
-	    }
-		})
-			.then((response) => {
-				console.log(response);
-				displayUrls(response);
+		fetch(`https://metaverse-portfolio-website.vercel.app/advSearch?data=${encodeURIComponent(email)}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    displayUrls(data);
+  })
+  .catch(error => console.error("Error:", error));
+		// axios.get(url, {
+  //   	params: {
+  //       data: email // Sending 'data=email' as a query parameter
+	 //    }
+		// })
+		// 	.then((response) => {
+		// 		console.log(response);
+		// 		displayUrls(response);
 
-			});
-		});
+		// 	});
+		// });
 		// Function to create and display the URLs table
 		function displayUrls(result) {
 			// console.log(result);
