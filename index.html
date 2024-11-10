@@ -184,7 +184,7 @@
 		const url = "https://metaverse-portfolio-website.vercel.app/advSearch";
 		console.log(url);
 		console.log(JSON.stringify({"data":email}).toString());
-		axios.get(url, {
+		axios.post(url, {
     	params: {
         data: email // Sending 'data=email' as a query parameter
 	    }
