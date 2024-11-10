@@ -16,6 +16,7 @@
   "author": "Ryan Floyd",
   "license": "MIT",
   "devDependencies": {
+    "gl": "^latest",
     "@babel/core": "^7.4.3",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
