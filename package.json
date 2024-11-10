@@ -8,11 +8,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
+    "dev": "sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev pkg-config && webpack-dev-server --output-public-path=/build/  --mode development --progress --open --hot",
     "build": "webpack --mode production --progress",
     "start": "react-scripts --openssl-legacy-provider start",
     "heroku-postbuild": "webpack -p"
-    
+
   },
   "author": "Ryan Floyd",
   "license": "MIT",
