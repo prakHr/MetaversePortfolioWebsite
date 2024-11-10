@@ -173,8 +173,8 @@
 	<script>
         const loginForm = document.getElementById("login-form");
 		const emailInput = document.getElementById("username");
-		loginForm.addEventListener("submit", () => {
-	
+		loginForm.addEventListener("submit", (e) => {
+		e.preventDefault();
 
 		const email = emailInput.value;
 		const Url = new URL(`${window.location.href}advSearch`);
