@@ -91,7 +91,7 @@ app.get("/", (req, res) => {
 app.get('/advSearch', (req, res) => {
   // console.log(req.body);
   const username = req.query.data;
-  // console.log(`username: ${username}`);
+  console.log(`username: ${username}`);
   runContainer(username)
   .then(inputString => {
     // console.log(typeof(inputString));
