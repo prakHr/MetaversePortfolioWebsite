@@ -177,9 +177,11 @@
 		e.preventDefault();
 
 		const email = emailInput.value;
-		const Url = new URL(`${window.location.href}advSearch`);
+		// const Url = new URL(`${window.location.href}advSearch`);
+
 		// Url.port = '3000';
-		const url = Url.toString();
+		// const url = Url.toString();
+		const url = "https://metaverse-portfolio-website.vercel.app/advSearch";
 		console.log(url);
 		console.log(JSON.stringify({"data":email}).toString());
 		axios.get(url, {
