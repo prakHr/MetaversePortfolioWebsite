@@ -16,7 +16,6 @@
   "author": "Ryan Floyd",
   "license": "MIT",
   "devDependencies": {
-    "gl": "latest",
     "@babel/core": "^7.4.3",
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
@@ -33,7 +32,6 @@
     "ammo.js": "github:kripken/ammo.js",
     "axios": "^1.7.7",
     "body-parser": "^1.20.3",
-    "brain.js": "^2.0.0-beta.23",
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "dat.gui": "^0.7.7",
