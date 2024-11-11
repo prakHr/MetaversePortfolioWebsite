@@ -4,7 +4,7 @@
 import { default as axios } from 'axios';
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log(req.query);
+    console.log(req);
     const { queryData } = req.query;
     axios.post('https://vercel-docker.onrender.com', { query: queryData })
   .then(response => {
@@ -18,16 +18,11 @@ export default async function handler(req, res) {
   .catch(error => {
     // Handle any errors
     console.error('Error fetching search results:', error);
+    return res.status(404).json({ error: error });
   });
 
 
-    if (!query) {
-      return res.status(400).json({ error: 'Query parameter is missing' });
-    }
-
-  } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
-  }
+    
 }
 
 // This is where you would add the actual logic to search or call another API
