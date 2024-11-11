@@ -4,11 +4,9 @@
       "source": "/api/search",
       "destination": "https://vercel-docker.onrender.com"
     }
-  ]
-},
-{
+  ],
   "functions": {
-    "api/search.mjs": {
+    "api/search.js": {
       "maxDuration": 60
     }
   }
