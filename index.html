@@ -203,6 +203,10 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 				  .then(response => {
 				    // Handle the response from the server
 				    console.log('Search Results:', response);
+				    console.log('Search Results:', response.data);
+				    console.log('Search Results:', response.data.success);
+				    
+				    
 				    displayUrls(response.data.success);
 				  })
 				  .catch(error => {
