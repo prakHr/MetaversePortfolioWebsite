@@ -1,27 +1,33 @@
-// search.js - API handler for search requests
-// const axios = require('axios');
-// const axios = require('axios/dist/browser/axios.cjs');
+// pages/api/search.js
 import { default as axios } from 'axios';
+
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log(req.body);
-    console.log(req.params);
-    
-    const  queryData  = req.params.query;
-    console.log(queryData);
-    axios.post('https://vercel-docker.onrender.com/api/search', { query: queryData }, { timeout: 60000 })
-  .then(response => {
-    // Handle the response from the server
-    console.log('Search Results:', response.data);
+    // Log the request body to verify incoming data
+    console.log('Request Body:', req.body);
 
-    // Example function to display the search results
-    // displayUrls(response.data);
-    return res.status(200).json({success:response.data});
-  })
-  .catch(error => {
-    // Handle any errors
-    console.error('Error fetching search results:', error);
-    return res.status(404).json({ error: error });
-  });
-}}
+    // Retrieve query data from the body (not params)
+    const queryData = req.body.query;
+    console.log('Query Data:', queryData);
 
+    try {
+      const response = await axios.post('https://vercel-docker.onrender.com/api/search', 
+        { query: queryData }, 
+        { timeout: 60000 }
+      );
+      
+      // Handle the response from the external server
+      console.log('Search Results:', response.data);
+
+      // Return the response data to the client
+      return res.status(200).json({ success: response.data });
+    } catch (error) {
+      // Handle errors (e.g., network issues, server issues)
+      console.error('Error fetching search results:', error);
+      return res.status(404).json({ error: error.message });
+    }
+  } else {
+    // If the method is not POST, return a method not allowed error
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+}
