@@ -2,12 +2,12 @@
 // const axios = require('axios');
 // const axios = require('axios/dist/browser/axios.cjs');
 import { default as axios } from 'axios';
-export const maxDuration = 60; 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log(req);
+    // console.log(req);
     const { queryData } = req.query;
-    axios.post('https://vercel-docker.onrender.com', { query: queryData })
+    console.log(queryData);
+    axios.post('https://vercel-docker.onrender.com/api/search', { query: queryData }, { timeout: 60000 })
   .then(response => {
     // Handle the response from the server
     console.log('Search Results:', response.data);
