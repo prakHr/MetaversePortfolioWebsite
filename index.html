@@ -202,9 +202,9 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 				  )
 				  .then(response => {
 				    // Handle the response from the server
-				    console.log('Search Results:', response);
-				    console.log('Search Results:', response.data);
-				    console.log('Search Results:', response.data.success);
+				    // console.log('Search Results:', response);
+				    // console.log('Search Results:', response.data);
+				    // console.log('Search Results:', response.data.success);
 				    
 				    
 				    displayUrls(response.data.success);
@@ -296,13 +296,13 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 				<th>URL</th>
 				</tr>
 			`;
-			result.data.firstLevelSearch.forEach(url => {
+			result.firstLevelSearch.forEach(url => {
 				const row = document.createElement("tr");
 				row.innerHTML = `<td>First URL :- ${url}</td>`;
 				tbody.appendChild(row);
 			})	
 			// Add rows to the table body for each URL
-			result.data.secondLevelSearch.forEach(url => {
+			result.secondLevelSearch.forEach(url => {
 				const row = document.createElement("tr");
 				row.innerHTML = `<td>Second Level URL :- ${url}</td>`;
 				tbody.appendChild(row);
