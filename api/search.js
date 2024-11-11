@@ -1,7 +1,7 @@
 const queryData = emailInput.value; // Replace with the actual search term
 
 // Call the API using axios.post
-axios.post('https://metaverse-portfolio-website.vercel.app/api/search', { query: queryData })
+axios.post('https://vercel-docker.onrender.com', { query: queryData })
   .then(response => {
     // Handle the response from the server
     console.log('Search Results:', response.data);
