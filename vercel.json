@@ -6,7 +6,7 @@
     }
   ],
   "functions": {
-    "api/search.js": {
+    "api/search.mjs": {
       "maxDuration": 60
     }
   }
