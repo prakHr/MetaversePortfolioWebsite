@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/search",
+      "destination": "https://metaverse-portfolio-website.vercel.app/api/search"
+    }
+  ]
+}
