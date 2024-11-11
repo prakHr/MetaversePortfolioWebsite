@@ -5,4 +5,11 @@
       "destination": "https://vercel-docker.onrender.com"
     }
   ]
+},
+{
+  "functions": {
+    "api/search.mjs": {
+      "maxDuration": 60
+    }
+  }
 }
