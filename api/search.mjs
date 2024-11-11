@@ -4,8 +4,10 @@
 import { default as axios } from 'axios';
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    // console.log(req);
-    const { queryData } = req.query;
+    console.log(req.body);
+    console.log(req.params);
+    
+    const  queryData  = req.params.query;
     console.log(queryData);
     axios.post('https://vercel-docker.onrender.com/api/search', { query: queryData }, { timeout: 60000 })
   .then(response => {
