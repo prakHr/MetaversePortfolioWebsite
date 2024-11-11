@@ -47,9 +47,5 @@ module.exports = {
     port: 8080,
     host: '0.0.0.0', // Allow access via your IP address
     disableHostCheck: true, // Disable host check for development
-  },
-
-  node: {
-    fs: 'empty',
-  },
+  }
 };
