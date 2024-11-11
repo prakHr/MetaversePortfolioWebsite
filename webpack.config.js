@@ -10,13 +10,14 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.bundle.js',
   },
+
   module: {
     rules: [
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
+        options: {
           presets: ['@babel/preset-env'],
         },
       },
@@ -28,18 +29,26 @@ module.exports = {
       },
     ],
   },
+  
   plugins: [new CompressionPlugin()],
+
   devServer: {
     proxy: {
-      '/advSearch': 'https://metaverse-portfolio-website.vercel.app/', // Assuming your server is running on port 3000
+      '/api/search': {
+        target: 'https://vercel-docker.onrender.com', 
+        secure: false,  // Disable SSL verification for development
+        changeOrigin: true, // Change the origin of the host header to the target URL
+        logLevel: 'debug'  // Log proxy details for debugging purposes
+      }
     },
     contentBase: path.join(__dirname, ''),
     compress: true,
     watchContentBase: true,
     port: 8080,
-    host: '0.0.0.0', //your ip address
-    disableHostCheck: true, //coment these out for prod
+    host: '0.0.0.0', // Allow access via your IP address
+    disableHostCheck: true, // Disable host check for development
   },
+
   node: {
     fs: 'empty',
   },
