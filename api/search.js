@@ -1,7 +1,8 @@
 // search.js - API handler for search requests
+const axios = require('axios');
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    console.log(req);
+    console.log(req.body);
     const { queryData } = req.body;
     axios.post('https://vercel-docker.onrender.com', { query: queryData })
   .then(response => {
@@ -9,7 +10,8 @@ export default async function handler(req, res) {
     console.log('Search Results:', response.data);
 
     // Example function to display the search results
-    displayUrls(response.data);
+    // displayUrls(response.data);
+    return res.status(200).json({success:response.data});
   })
   .catch(error => {
     // Handle any errors
