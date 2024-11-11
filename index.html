@@ -197,7 +197,7 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 				const queryData = emailInput.value; // Replace with the actual search term
 				// console.log(queryData)
 				// Call the API
-				axios.post('/api/search', 
+				axios.post('https://metaverse-portfolio-website.vercel.app/api/search', 
 				    {query : queryData}
 				  )
 				  .then(response => {

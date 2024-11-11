@@ -34,7 +34,7 @@ module.exports = {
 
   devServer: {
     proxy: {
-      '/api/search': {
+      'https://metaverse-portfolio-website.vercel.app/api/search': {
         target: 'https://vercel-docker.onrender.com', 
         secure: false,  // Disable SSL verification for development
         changeOrigin: true, // Change the origin of the host header to the target URL
