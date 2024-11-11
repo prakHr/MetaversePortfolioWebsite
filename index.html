@@ -202,12 +202,12 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 				  )
 				  .then(response => {
 				    // Handle the response from the server
-				    // console.log('Search Results:', response);
-				    displayUrls(response.success);
+				    console.log('Search Results:', response);
+				    displayUrls(response.search);
 				  })
 				  .catch(error => {
 				    // Handle any errors
-				    // console.error('Error fetching search results:', error);
+				    console.error('Error fetching search results:', error);
 				  });
 		    
 		}
