@@ -1,11 +1,31 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const queryData = emailInput.value; // Replace with the actual search term
 
-module.exports = function(app) {
-    app.use(
-        '/api/search',
-        createProxyMiddleware({
-            target: 'https://vercel-docker.onrender.com',
-            changeOrigin: true,
-        })
-    );
-};
+// Call the API using axios.post
+axios.post('https://metaverse-portfolio-website.vercel.app/api/search', { query: queryData })
+  .then(response => {
+    // Handle the response from the server
+    console.log('Search Results:', response.data);
+
+    // Example function to display the search results
+    displayUrls(response.data);
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('Error fetching search results:', error);
+  });
+
+// Example function to display URLs in the UI (you can customize this)
+function displayUrls(data) {
+  if (data.success && data.data.length > 0) {
+    const resultList = document.getElementById('results');
+    resultList.innerHTML = ''; // Clear previous results
+
+    data.data.forEach(item => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `<a href="${item.url}" target="_blank">${item.title}</a>`;
+      resultList.appendChild(listItem);
+    });
+  } else {
+    console.log('No results found.');
+  }
+}
