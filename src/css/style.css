@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap');
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 #BTNCLASS1{
 	text-align: center;
 	background-color: goldenrod;
