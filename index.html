@@ -165,6 +165,8 @@
 			<button id="table">CODING RESOURCES</button>
 			<button id="table-back">ONE RESOURCE BACKWARD</button>
 
+			<button id="infinite-songs">Songs for u</button>
+			
 
 			
 		</div>
@@ -225,67 +227,6 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 
 		// Add an event listener to the button
 		apiButton.addEventListener('click', sendPostRequest);
-
-
-		// btn.addEventListener('click', function() {
-
-			// e.preventDefault();
-
-			// const email = emailInput.value;
-			// const Url = new URL(`${window.location.href}advSearch`);
-			// const url = "https://vercel-docker.onrender.com/api/search";
-			// const dt = { "query": email };  // Assuming `email` is defined
-			// const url = "https://vercel-docker.onrender.com/api/search";
-			// console.log(url);
-
-			// console.log(JSON.stringify({"data":"email"}).toString());
-			// axios.post(url, {
-			//   "query":  "email" // Sending 'data=email' as a query parameter
-			  
-			// })
-			// .then((response) => {
-			//   console.log(response);
-
-			// });
-
-
-			// fetch(url,dt, {
-			//   method: 'POST',  // Use 'POST' method for sending data
-			//   headers: {
-			//     'Content-Type': 'application/json'  // Specify the content type as JSON
-			//   },
-			//   body: JSON.stringify(dt)  // Convert the data to a JSON string
-			// })
-			// .then(response => response.json())  // Parse the response as JSON
-			// .then(data => {
-			//   console.log(data);  // Handle the response data here
-			//   displayUrls(data);  // Assuming you have a function to display URLs
-			// })
-			// .catch(error => {
-			//   console.error('Network Error:', error);  // Handle any errors
-			// });
-
-			// Url.port = '3000';
-			// const url = Url.toString();
-			// const url = "https://vercel-docker.onrender.com/api/search";
-			// console.log(url);
-			// const dt =  { "query": email };
-			// console.log(dt);
-			// console.log(JSON.stringify({"data":email}).toString());
-		// 	axios.post(url, dt, {
-		// 	headers: {
-		// 		'Content-Type': 'application/json'
-		// 	}
-		// 	})
-		// 	.then((response) => {
-		// 	console.log(response);
-		// 	displayUrls(response.data);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	console.error("Network error:", error.message);
-		// 	});
-		// });
 		// Function to create and display the URLs table
 		function displayUrls(result) {
 			// console.log(result);
@@ -327,7 +268,8 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 
 		const buttonTable = document.getElementById( 'table' );
 		const buttonTableBack = document.getElementById( 'table-back' );
-		
+		const songsList = document.getElementById( 'infinite-songs' );
+
 		var i = 0;
 		const cars = [
 			"For Beginner Level Competitive Programming :- Codechef and Codeforces Div 3",
@@ -351,7 +293,126 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 			"For Advanced Company Level Projects using React :- Clever Programmer",
 
 		];
+
+		var j = 0;
 			
+		const songs = [
+			"Kobe bryant dont let me down",
+			"lucky one - Ryan o’ shaughnessy",
+			"Once i was 7 years old",
+			"The greatest showman songs",
+			"Good riddance time of your life",
+			"Push your head towards the air",
+			"Courtesy call",
+			"Monster amv",
+			"Let me fall(aomine)",
+			"frame of mind(kuroko no basuke)",
+			"Superhero workout motivation",
+			"Remember me-coco",
+			"Fast and furious soundtrack",
+			"Linkin park-burn it down",
+			"This is how u remind me",
+			"Once in every lifetime",
+			"We dont talk anymore-selena gomez",
+			"Kill them with kindness",
+			"Yuri on ice opening song",
+			"Rocky songs",
+			"Listen to your heart",
+			"Running home to you",
+			"Dynasty - gwen and peter",
+			"High school musical songs",
+			"Imagine dragons-radioactive",
+			"Believer",
+			"Whatever it takes",
+			"Beautiful-one direction",
+			"Time in a bottle-Quicksilveryo",
+			"A thousand years(christina perri)",
+			"Sweet silver lining",
+			"When the stars go blue",
+			"Hold on-vampire diaries",
+			"Fireworks-katy perry(madagascar 3)",
+			"Rise-katy perry(avengers amv)",
+			"I like it - Party song - Enrique Iglesias",
+			"Hero - Enrique Iglesias",
+			"Why not me - Enrique Iglesias",
+			"Common denominator - justin bieber",
+			"Mistletoe",
+			"Eenie menie",
+			"Dear john-far away",
+			"Impossible-goa hawkman",
+			"Islands in the stream",
+			"Panda eyes",
+			"Kindly unspoken",
+			"Its only life",
+			"All in my head",
+			"Hellalujah-kate voegele",
+			"One tree hill theme song",
+			"I want it that way-stepup",
+			"The one that got away by tiffany alward",
+			"Perfect (cover by Tiffany Alvord)",
+			"Thinking out loud",
+			"Wake me up when september ends",
+			"The waving flag",
+			"Britains got talent participants songs no name",
+			"One last time(natasha romanoff)",
+			"Incredible love(superman)",
+			"The greatest sia(yuri on ice)",
+			"Enchanted-Taylor Swift",
+			"Shifu flute(calm song after taking a nap)",
+			"Born for this(minato amv)",
+			"Remember the name(zorro amv)",
+			"Scientist",
+			"You broke me first",
+			"Hall of fame(never back down)",
+			"How you remind me(never back down)",
+			"Falling(Lucas and Peyton)",
+			"Let me down slowly(tommy and grace)",
+			"Only Hope(Mandy Moore)",
+			"Best day of my life",
+			"Burn it down Linkin park",
+			"Boulevard of broken dreams",
+			"Invisible man",
+			"Perfect",
+			"All of me",
+			"See you again",
+			"Before you go  hanin dhiya",
+			"One direction songs",
+			"Imagine dragons songs",
+			"Runaway kanye west",
+			"Home finally home  forever my girl",
+			"Never say never justin bieber",
+			"I am in the zone",
+			"You broke me first",
+			"Love is gone",
+			"I am sorry don't leave me",
+			"Beatbox and Dubstep",
+			"Panda eyescolorblind",
+			"Adam levine songs",
+			"Samjhawan",
+			"Baatein Ye Kabhi Na",
+			"Jeena Jeena",
+			"Peelun Emran hashmi",
+			"Zara sa",
+			"mere bina",
+			"main rahoon ya na rahoon",
+			"dil ibaadat",
+			"Tune mere jaana",
+			"Tum hi ho",
+			"Sunn Raha he",
+			"Piya aaye na",
+			"Main woh chand",
+			"Bhaag milkha Bhaag songs",
+			"Aakhon mein teri ajab si ajab si aadayein hain",
+			"main aisa kyun hoon",
+			"Jalwa  Wanted",
+			"Teri meri prem kahani",
+			"Tu jo mila",
+			"HangoverSalman Khan",
+			"Duniya layi",
+			"Cinderella story songs"
+
+		];
+
 		buttonTable.addEventListener( 'click', function () {
 			
 			//console.log("Need to change the text dynamically now");		
@@ -366,6 +427,13 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 			if(i<0){
 				i=cars.length-1;
 			}
+		} );
+
+		songsList.addEventListener( 'click', function () {
+			console.log(j);
+			//console.log("Need to change the text dynamically now");		
+			document.getElementById("appDirections").innerHTML =songs[j%(songs.length)];
+			j=j+1;
 		} );
 		var btn1 = document.getElementById('btn1');
 		var btn2 = document.getElementById('btn2');
