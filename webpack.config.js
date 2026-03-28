@@ -30,7 +30,9 @@ module.exports = {
     ],
   },
   
-  plugins: [new CompressionPlugin()],
+  plugins: [
+    // new CompressionPlugin()
+  ],
 
   devServer: {
     proxy: {
