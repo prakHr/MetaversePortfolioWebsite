@@ -112,10 +112,12 @@
 				  <a href="https://prakhr.github.io/Portfolio-Site/resume/resume.pdf" id="btn4">Resume</a>
 
 				</nav>
-        <h1 class="ryan-text postload fadeOutDiv" >Hi, I'm <span class="yellow-text" style="color:blue;">Prakhar Gandhi!</span></h1>
-        <h1 class="postload start-page-text interactive-site-text fadeOutDiv" style="color:green;">This is my personal home Are you into metaverse, nfts, blockchains, ML, DL, AI and the ultimate World of Competitive Programming because I am into it!</h1>
-        <h1 id="appDirections" class="start-page-text joystick-directions-text postload fadeOutDiv" style="color:darkgreen;">Play with the earth around with the arrow keys on the keyboard.</h1>
-        <button id="start-button" class="postload fadeOutDiv"  style="color:gold;">Welcome & Explore my world!</button>
+		<div class="start-page-content-div fadeOutDiv" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: silver;">
+			<h1 class="ryan-text postload fadeOutDiv" ><span style="background-color: orange;color:dark;">Hi, I'm Prakhar Gandhi, I am the man who will become king of the pirates. So come join me on my ride!</span></h1>
+			<h1 class="postload start-page-text interactive-site-text fadeOutDiv" style="color:gold;background-color: black;">This is my personal home Are you into metaverse, nfts, blockchains, ML, DL, AI and the ultimate World of Competitive Programming because I am into it!</h1>
+			<h1 id="appDirections" class="start-page-text joystick-directions-text postload fadeOutDiv" style="color:gold;background-color: black;">Play with the earth around with the arrow keys on the keyboard.</h1>
+			<button id="start-button" class="postload fadeOutDiv"  style="color:gold; background-color: black;">Welcome & Explore my world!</button>
+		</div>
       </div>
 	  <div class="trinity-rings-spinner preload">
         <div class="circle preload"></div>
@@ -157,8 +159,13 @@
 
     </script>
     <div id="menu">
+
+			<button id="show-best-game">SHOW BEST EVER GAME</button>
+
 			<button id="table">CODING RESOURCES</button>
 			<button id="table-back">ONE RESOURCE BACKWARD</button>
+
+
 			
 		</div>
     
@@ -377,6 +384,13 @@ import ky from 'https://unpkg.com/ky/distribution/index.js';
 		btn3.addEventListener('click', function() {
 			// console.log('button 3 is clicked!');
 		  // do something when button 3 is clicked
+		});
+
+		var showBestGameButton = document.getElementById('show-best-game');
+		showBestGameButton.addEventListener('click', function() {
+			// console.log('Show Best Game button is clicked!');
+			window.open('https://hexgl.bkcore.com/play/', '_blank');
+		  // do something when the Show Best Game button is clicked
 		});
 	</script>
     <script src="build/app.bundle.js"></script>
