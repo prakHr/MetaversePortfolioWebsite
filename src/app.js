@@ -1238,7 +1238,7 @@ Ammo().then((Ammo) => {
 	//console.log(error);
 	});
     const gltfLoader1 = new GLTFLoader();
-    gltfLoader1.load("/static/models/mech_drone/scene.gltf",(gltf)=>{
+    gltfLoader1.load("/static/models/robot_playground/scene.gltf",(gltf)=>{
 	    //console.log("INSERTED ROBOT HERE",gltf);
 	    //for(let i=0;i<gltf.scene.children.length;i++){
 	    //  scene.add(gltf.scene.children[i]);
@@ -1248,7 +1248,7 @@ Ammo().then((Ammo) => {
 	    // house.position.set(glowingParticles.x,glowingParticles.y,glowingParticles.z);
 	    // scene.add(robot);
 	    const robot = gltf.scene;
-	    robot.scale.set(50,50,50);
+	    robot.scale.set(25,7,7);
 	    robot.position.set(0,15,0);
 	    
 	    scene.add(robot);
