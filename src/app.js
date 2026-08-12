@@ -1360,18 +1360,6 @@ linux virtual machine.`;
     //   true
     // );
 
-    createBox(
-      19,
-      2,
-      -70,
-      4,
-      4,
-      1,
-      boxTexture.LinkedIn,
-      URL.LinkedIn,
-      0x0077b5,
-      true
-    );
     // createBox(
     //   35,
     //   2,
@@ -1438,9 +1426,8 @@ linux virtual machine.`;
 
     // floatingLabel(3.875, 4.5, -70, 'Twitter');
     floatingLabel(11.875, 4.5+4.5/2, -70, 'My Github \n Account!');
-    floatingLabel(19.125, 4.5+4.5/2, -70, 'My LinkedIn \n Profile!');
     floatingLabel(26.875, 4.5+4.5/2, -70, 'My Email!');
-	floatingLabel(26.875+7, 4.5+4.5/2, -70, 'My Youtube \n Channel!');
+	  floatingLabel(26.875+7, 4.5+4.5/2, -70, 'My Youtube \n Channel!');
     // floatingLabel(35, 6.5, -70, '  Static \nWebsite');
     //floatingLabel(35, 6.5, -70, '   How I \nmade this');
     // floatingLabel(44, 6.5, -70, '   How I \nmade this');

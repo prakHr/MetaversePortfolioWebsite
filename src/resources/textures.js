@@ -9,8 +9,6 @@ billboardTextures.homeSweetHomeTexture =
 //box textures
 let boxTexture = {};
 boxTexture.Github = '../src/jsm/githubLogo.png';
-//boxTexture.twitter = '../src/jsm/twitter.png';
-boxTexture.LinkedIn = '../src/jsm/linkedInLogo.png';
 boxTexture.mail = '../src/jsm/envelope.png';
 boxTexture.globe = '../src/jsm/thunder.png';
 
@@ -51,7 +49,6 @@ URL.bagholderBets = 'https://custom-charts-clone.web.app/';
 URL.homeSweetHomeURL = 'https://github.com/MrRyanFloyd/home-sweet-127.0.0.1';
 URL.gitHub = 'https://github.com/praKhr';
 URL.twitter = 'https://twitter.com/0xFloyd';
-URL.LinkedIn = 'https://www.linkedin.com/in/prakhar-gandhi-0a305915a/';
 URL.email = 'https://mailto:gprakhar0@gmail.com';
 URL.githubBagholder = 'https://custom-charts-clone.web.app/';
 URL.githubHomeSweetHome = 'https://github.com/MrRyanFloyd/home-sweet-127.0.0.1';
