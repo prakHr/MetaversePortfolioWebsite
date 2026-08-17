@@ -189,7 +189,7 @@ Ammo().then((Ammo) => {
   function createBall(xx,yy,zz) {
     //let pos = { x: 8.75, y: 0, z: 0 };
 	let pos = { x: xx, y: yy, z: zz };
-    let radius = 2;
+    let radius = 5;
     let quat = { x: 0, y: 0, z: 0, w: 1 };
     let mass = 3;
 
