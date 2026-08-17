@@ -268,7 +268,6 @@ Ammo().then((Ammo) => {
     var material = new THREE.MeshBasicMaterial(
       {
         map:texture,
-    
       }
     );
     var cube = new THREE.Mesh(geometry,material);
