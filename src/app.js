@@ -283,62 +283,614 @@ Ammo().then((Ammo) => {
     animateCube();
   
   }
-  
-  //create beach ball Mesh
-  function createBeachBall() {
-    let pos = { x: 20, y: 30, z: 0 };
-    let radius = 2;
-    let quat = { x: 0, y: 0, z: 0, w: 1 };
-    let mass = 20;
+  // ============================================================
+// ROLLER COASTER + BEACH BALL
+// Three.js + Ammo.js
+// ============================================================
 
-    //import beach ball texture
-    var texture_loader = new THREE.TextureLoader(manager);
-    var beachTexture = texture_loader.load('./src/jsm/BeachBallColor.jpg');
-    beachTexture.wrapS = beachTexture.wrapT = THREE.RepeatWrapping;
-    beachTexture.repeat.set(1, 1);
-    beachTexture.anisotropy = 1;
-    beachTexture.encoding = THREE.sRGBEncoding;
 
-    //threeJS Section
-    let ball = new THREE.Mesh(
-      new THREE.SphereGeometry(radius, 32, 32),
-      new THREE.MeshLambertMaterial({ map: beachTexture })
+// ============================================================
+// CREATE ROLLER COASTER
+// ============================================================
+
+function rollerCoaster() {
+
+    // Smooth roller coaster path
+    const curve = new THREE.CatmullRomCurve3([
+
+        new THREE.Vector3(-70, 8, 0),
+
+        new THREE.Vector3(-60, 8, 0),
+
+        new THREE.Vector3(-50, 15, 0),
+
+        new THREE.Vector3(-40, 25, 0),
+
+        new THREE.Vector3(-30, 15, 0),
+
+        new THREE.Vector3(-20, 8, 0),
+
+        new THREE.Vector3(-10, 5, 0),
+
+        new THREE.Vector3(0, 8, 0),
+
+        new THREE.Vector3(10, 18, 0),
+
+        new THREE.Vector3(20, 30, 0),
+
+        new THREE.Vector3(30, 18, 0),
+
+        new THREE.Vector3(40, 8, 0),
+
+        new THREE.Vector3(50, 5, 0),
+
+        new THREE.Vector3(60, 10, 0),
+
+        new THREE.Vector3(70, 20, 0),
+
+        new THREE.Vector3(80, 8, 0)
+
+    ]);
+
+
+    // Number of physical segments
+    const segments = 200;
+
+
+    // Track dimensions
+    const trackWidth = 3;
+    const trackHeight = 0.4;
+
+
+    // Material
+    const trackMaterial =
+        new THREE.MeshStandardMaterial({
+            color: 0x444444,
+            metalness: 0.7,
+            roughness: 0.3
+        });
+
+
+    // Create track segments
+    for (let i = 0; i < segments - 1; i++) {
+
+        const t1 = i / (segments - 1);
+
+        const t2 = (i + 1) / (segments - 1);
+
+
+        const p1 = curve.getPoint(t1);
+
+        const p2 = curve.getPoint(t2);
+
+
+        createTrackPiece(
+            p1,
+            p2,
+            trackWidth,
+            trackHeight,
+            trackMaterial
+        );
+    }
+
+
+    // Create visual rails
+    createRollerRails(curve);
+}
+
+
+// ============================================================
+// CREATE INDIVIDUAL TRACK PIECE
+// ============================================================
+
+function createTrackPiece(
+    p1,
+    p2,
+    trackWidth,
+    trackHeight,
+    material
+) {
+
+    // Direction from p1 -> p2
+    const direction =
+        new THREE.Vector3()
+            .subVectors(p2, p1);
+
+
+    const length =
+        direction.length();
+
+
+    // Center of segment
+    const midpoint =
+        new THREE.Vector3()
+            .addVectors(p1, p2)
+            .multiplyScalar(0.5);
+
+
+    // Rotation
+    const quaternion =
+        new THREE.Quaternion();
+
+
+    quaternion.setFromUnitVectors(
+        new THREE.Vector3(1, 0, 0),
+        direction.clone().normalize()
     );
 
-    ball.position.set(pos.x, pos.y, pos.z);
-    ball.castShadow = true;
-    ball.receiveShadow = true;
-    scene.add(ball);
 
-    //Ammojs Section
-    let transform = new Ammo.btTransform();
+    // ========================================================
+    // THREE.JS MESH
+    // ========================================================
+
+    const mesh = new THREE.Mesh(
+        new THREE.BoxGeometry(
+            length + 0.05,
+            trackHeight,
+            trackWidth
+        ),
+        material
+    );
+
+
+    mesh.position.copy(midpoint);
+
+    mesh.quaternion.copy(quaternion);
+
+    mesh.castShadow = true;
+
+    mesh.receiveShadow = true;
+
+    scene.add(mesh);
+
+
+    // ========================================================
+    // AMMO.JS COLLISION
+    // ========================================================
+
+    const shape =
+        new Ammo.btBoxShape(
+            new Ammo.btVector3(
+                (length + 0.05) * 0.5,
+                trackHeight * 0.5,
+                trackWidth * 0.5
+            )
+        );
+
+
+    shape.setMargin(0.02);
+
+
+    // Transform
+    const transform =
+        new Ammo.btTransform();
+
+
     transform.setIdentity();
-    transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
+
+
+    transform.setOrigin(
+        new Ammo.btVector3(
+            midpoint.x,
+            midpoint.y,
+            midpoint.z
+        )
+    );
+
+
     transform.setRotation(
-      new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w)
+        new Ammo.btQuaternion(
+            quaternion.x,
+            quaternion.y,
+            quaternion.z,
+            quaternion.w
+        )
     );
-    let motionState = new Ammo.btDefaultMotionState(transform);
 
-    let colShape = new Ammo.btSphereShape(radius);
-    colShape.setMargin(0.05);
 
-    let localInertia = new Ammo.btVector3(0, 0, 0);
-    colShape.calculateLocalInertia(mass, localInertia);
+    // Motion state
+    const motionState =
+        new Ammo.btDefaultMotionState(
+            transform
+        );
 
-    let rbInfo = new Ammo.btRigidBodyConstructionInfo(
-      mass,
-      motionState,
-      colShape,
-      localInertia
-    );
-    let body = new Ammo.btRigidBody(rbInfo);
 
-    body.setRollingFriction(1);
+    // ========================================================
+    // STATIC BODY
+    // ========================================================
+
+    const rbInfo =
+        new Ammo.btRigidBodyConstructionInfo(
+            0, // IMPORTANT: static object
+            motionState,
+            shape,
+            new Ammo.btVector3(0, 0, 0)
+        );
+
+
+    const body =
+        new Ammo.btRigidBody(rbInfo);
+
+
+    // Track friction
+    body.setFriction(0.8);
+
+    body.setRollingFriction(0.05);
+
+
+    // Add physics
     physicsWorld.addRigidBody(body);
 
-    ball.userData.physicsBody = body;
-    rigidBodies.push(ball);
-  }
+
+    mesh.userData.physicsBody = body;
+}
+
+
+// ============================================================
+// CREATE VISUAL RAILS
+// ============================================================
+
+function createRollerRails(curve) {
+
+    const railMaterial =
+        new THREE.MeshStandardMaterial({
+            color: 0x222222,
+            metalness: 0.8,
+            roughness: 0.25
+        });
+
+
+    const railRadius = 0.18;
+
+    const railDistance = 1.1;
+
+    const railSegments = 200;
+
+
+    // Left rail
+    createRail(
+        curve,
+        -railDistance,
+        railRadius,
+        railSegments,
+        railMaterial
+    );
+
+
+    // Right rail
+    createRail(
+        curve,
+        railDistance,
+        railRadius,
+        railSegments,
+        railMaterial
+    );
+}
+
+
+// ============================================================
+// CREATE ONE RAIL
+// ============================================================
+
+function createRail(
+    curve,
+    offsetZ,
+    radius,
+    segments,
+    material
+) {
+
+    for (let i = 0; i < segments - 1; i++) {
+
+        const t1 =
+            i / (segments - 1);
+
+        const t2 =
+            (i + 1) / (segments - 1);
+
+
+        const p1 =
+            curve.getPoint(t1);
+
+
+        const p2 =
+            curve.getPoint(t2);
+
+
+        // Offset rail in Z direction
+        p1.z += offsetZ;
+
+        p2.z += offsetZ;
+
+
+        const direction =
+            new THREE.Vector3()
+                .subVectors(p2, p1);
+
+
+        const length =
+            direction.length();
+
+
+        const midpoint =
+            new THREE.Vector3()
+                .addVectors(p1, p2)
+                .multiplyScalar(0.5);
+
+
+        const quaternion =
+            new THREE.Quaternion();
+
+
+        quaternion.setFromUnitVectors(
+            new THREE.Vector3(1, 0, 0),
+            direction.normalize()
+        );
+
+
+        const rail =
+            new THREE.Mesh(
+                new THREE.CylinderGeometry(
+                    radius,
+                    radius,
+                    length,
+                    12
+                ),
+                material
+            );
+
+
+        rail.position.copy(midpoint);
+
+
+        // Cylinder normally points along Y.
+        // Rotate it so it follows the track.
+        rail.quaternion.copy(quaternion);
+
+        rail.rotateZ(Math.PI / 2);
+
+
+        rail.castShadow = true;
+
+        rail.receiveShadow = true;
+
+        scene.add(rail);
+    }
+}
+
+
+// ============================================================
+// CREATE BEACH BALL
+// ============================================================
+
+function createBeachBall() {
+
+    // --------------------------------------------------------
+    // Position
+    // --------------------------------------------------------
+
+    let pos = {
+        x: -65,
+        y: 13,
+        z: 0
+    };
+
+
+    // Ball radius
+    let radius = 2;
+
+
+    // Initial rotation
+    let quat = {
+        x: 0,
+        y: 0,
+        z: 0,
+        w: 1
+    };
+
+
+    // Ball mass
+    let mass = 20;
+
+
+    // ========================================================
+    // THREE.JS TEXTURE
+    // ========================================================
+
+    let texture_loader =
+        new THREE.TextureLoader(manager);
+
+
+    let beachTexture =
+        texture_loader.load(
+            './src/jsm/BeachBallColor.jpg'
+        );
+
+
+    beachTexture.wrapS =
+        beachTexture.wrapT =
+        THREE.RepeatWrapping;
+
+
+    beachTexture.repeat.set(
+        1,
+        1
+    );
+
+
+    beachTexture.anisotropy = 1;
+
+
+    beachTexture.encoding =
+        THREE.sRGBEncoding;
+
+
+    // ========================================================
+    // THREE.JS BALL
+    // ========================================================
+
+    let ball =
+        new THREE.Mesh(
+
+            new THREE.SphereGeometry(
+                radius,
+                32,
+                32
+            ),
+
+            new THREE.MeshLambertMaterial({
+                map: beachTexture
+            })
+        );
+
+
+    ball.position.set(
+        pos.x,
+        pos.y,
+        pos.z
+    );
+
+
+    ball.castShadow = true;
+
+    ball.receiveShadow = true;
+
+
+    scene.add(ball);
+
+
+    // ========================================================
+    // AMMO.JS
+    // ========================================================
+
+    let transform =
+        new Ammo.btTransform();
+
+
+    transform.setIdentity();
+
+
+    transform.setOrigin(
+        new Ammo.btVector3(
+            pos.x,
+            pos.y,
+            pos.z
+        )
+    );
+
+
+    transform.setRotation(
+        new Ammo.btQuaternion(
+            quat.x,
+            quat.y,
+            quat.z,
+            quat.w
+        )
+    );
+
+
+    let motionState =
+        new Ammo.btDefaultMotionState(
+            transform
+        );
+
+
+    // ========================================================
+    // SPHERE COLLISION
+    // ========================================================
+
+    let colShape =
+        new Ammo.btSphereShape(
+            radius
+        );
+
+
+    colShape.setMargin(
+        0.05
+    );
+
+
+    // ========================================================
+    // INERTIA
+    // ========================================================
+
+    let localInertia =
+        new Ammo.btVector3(
+            0,
+            0,
+            0
+        );
+
+
+    colShape.calculateLocalInertia(
+        mass,
+        localInertia
+    );
+
+
+    // ========================================================
+    // RIGID BODY
+    // ========================================================
+
+    let rbInfo =
+        new Ammo.btRigidBodyConstructionInfo(
+            mass,
+            motionState,
+            colShape,
+            localInertia
+        );
+
+
+    let body =
+        new Ammo.btRigidBody(
+            rbInfo
+        );
+
+
+    // ========================================================
+    // BALL PHYSICS
+    // ========================================================
+
+    body.setFriction(0.3);
+
+    body.setRollingFriction(0.05);
+
+    body.setSpinningFriction(0.05);
+
+
+    // Prevent sleeping
+    body.setActivationState(4);
+
+
+    // ========================================================
+    // ADD TO PHYSICS WORLD
+    // ========================================================
+
+    physicsWorld.addRigidBody(
+        body
+    );
+
+
+    // Connect Three.js mesh
+    // with Ammo.js body
+
+    ball.userData.physicsBody =
+        body;
+
+
+    rigidBodies.push(
+        ball
+    );
+}
+
+
+// ============================================================
+// CALL FUNCTIONS
+// ============================================================
+
+// Make sure Ammo.js and physicsWorld
+// have already been initialized.
+
 
   //create link boxes
   function createBox(
@@ -1098,6 +1650,10 @@ Ammo().then((Ammo) => {
 
     startButton.removeEventListener('click', startButtonEventListener);
     document.addEventListener('click', launchClickPosition);
+    // createBeachBall();
+    
+    rollerCoaster();
+
     createBeachBall();
 
     setTimeout(() => {
