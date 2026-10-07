@@ -677,7 +677,7 @@ function createBeachBall() {
 
 
     // Ball radius
-    let radius = 2;
+    let radius = 10;
 
 
     // Initial rotation
@@ -701,10 +701,25 @@ function createBeachBall() {
         new THREE.TextureLoader(manager);
 
 
-    let beachTexture =
-        texture_loader.load(
-            './src/jsm/BeachBallColor.jpg'
-        );
+    // let beachTexture =
+    //     texture_loader.load(
+    //         './src/jsm/BeachBallColor.jpg'
+    //     );
+
+      const beachBallTextures = [
+      './src/jsm/BeachBallColor1.jpg',
+      './src/jsm/BeachBallColor2.jpg',
+      './src/jsm/BeachBallColor3.jpg',
+      './src/jsm/BeachBallColor4.jpg',
+      './src/jsm/BeachBallColor5.jpg'
+  ];
+
+    const randomTexture =
+        beachBallTextures[
+            Math.floor(Math.random() * beachBallTextures.length)
+        ];
+
+    let beachTexture = texture_loader.load(randomTexture);
 
 
     beachTexture.wrapS =
