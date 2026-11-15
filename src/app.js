@@ -87,20 +87,20 @@ Ammo().then((Ammo) => {
   var objectsWithLinks = [];
   //function to create a video element in existing webgl graphics
   function createVideo(videoId,xx,yy,zz){
-	const geometry = new THREE.BoxGeometry( 30, 15, 0 );
-	// invert the geometry on the x-axis so that all of the faces point inward
-	//geometry.scale( 1, 1, 1 );
-  	const video = document.getElementById( videoId );
-	video.play();
+    const geometry = new THREE.BoxGeometry( 30, 15, 0 );
+    // invert the geometry on the x-axis so that all of the faces point inward
+    //geometry.scale( 1, 1, 1 );
+    const video = document.getElementById( videoId );
+    video.play();
 
-	const texture = new THREE.VideoTexture( video );
-	const material = new THREE.MeshBasicMaterial( { map: texture } );
+    const texture = new THREE.VideoTexture( video );
+    const material = new THREE.MeshBasicMaterial( { map: texture } );
 
-	const mesh = new THREE.Mesh( geometry, material );
-	mesh.position.setX(xx);
-	mesh.position.setY(yy);
-	mesh.position.setZ(zz);
-	scene.add( mesh );
+    const mesh = new THREE.Mesh( geometry, material );
+    mesh.position.setX(xx);
+    mesh.position.setY(yy);
+    mesh.position.setZ(zz);
+    scene.add( mesh );
   }
   
   //function to create physics world with Ammo.js
@@ -2156,19 +2156,16 @@ linux virtual machine.`;
     setupEventHandlers();
     // window.addEventListener('mousemove', onDocumentMouseMove, false);
     renderFrame();
-	createBillboardWithArrows();
-	
-	createVideo('video',26.875+20,8.5,-80);
-	
+    createBillboardWithArrows();
+    
+    createVideo('video1',26.875+20,8.5,-80);
+    createVideo('video2',26.875+20+20+20,8.5,-80);
+    
   }
 
   //check if user's browser has WebGL capabilities
   if (WEBGL.isWebGLAvailable()) {
-    
-    
-	start();
-	
-
+    start();
   } else {
     noWebGL();
   }
